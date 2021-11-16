@@ -54,12 +54,12 @@
 } ?>>京都府</option>
                                 </select>
                             </td>
-                            <td><input type="date" name="start_date" id="start_date" value="{{ $data->start_date }}">
+                            <td><input type="date" name="start_date" id="start_date" value="{{ $data->start_date }}" required>
                             </td>
                             <td><input type="number" name="progress" id="progress" min="1" max="100"
-                                    value="{{ $data->progress }}">日</td>
+                                    value="{{ $data->progress }}" required>日</td>
                             <td><input type="number" name="count" id="count" min="1" max="100"
-                                    value="{{ $data->progress }}">席</td>
+                                    value="{{ $data->progress }}" required>席</td>
                             <td>{{ $data->created_at }}</td>
                             <td>{{ $data->updated_at }}</td>
                         </tr>

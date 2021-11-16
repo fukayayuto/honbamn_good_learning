@@ -14,6 +14,15 @@ class HomeController extends Controller
 {
     public function index()
     {
+
+        // $title = 'これはテストです';
+        // $link_part = 'テスト';
+        // $part_first = strstr($title,$link_part,true);
+        // $left_part = strstr($title,$link_part);
+        // $word_count = mb_strlen($link_part);
+        // $part_final = mb_substr($left_part, $word_count);
+        // die();
+
         //ログイン情報
         if (empty(Auth::user())) {
             return redirect('/login');
@@ -40,7 +49,29 @@ class HomeController extends Controller
 
         //インフォメーション
         $information = new Information();
-        $information_data = $information->getData();
+        $information_datas = $information->getData();
+
+        $information_data = [];
+
+        foreach ($information_datas as $k => $val){
+            $tmp = [];
+            $title = $val->title;
+            $link_part = $val->link_part;
+            $part_first = strstr($title,$link_part,true);
+            $left_part = strstr($title,$link_part);
+            $word_count = mb_strlen($link_part);
+            $part_final = mb_substr($left_part, $word_count);
+
+            $tmp['title'] = $title;
+            $tmp['link_part'] = $link_part;
+            $tmp['link'] = $val->link;
+            $tmp['part_first'] = $part_first;
+            $tmp['part_final'] = $part_final;
+            $tmp['created_at'] = $val->created_at;
+            $tmp['display_flg'] = $val->display_flg;
+            $information_data[$k] = $tmp;
+
+        }
 
         return view('/dashboard', compact('data', 'user', 'information_data'));
     }

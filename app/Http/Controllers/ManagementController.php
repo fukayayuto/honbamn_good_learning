@@ -290,7 +290,20 @@ class ManagementController extends Controller
     public function information_index()
     {
         $information = new Information();
-        $data = $information->getAllData();
+        $information_data = $information->getAllData();
+        $data = [];
+        foreach ($information_data as $k => $val){
+            $tmp = [];
+            $tmp['id'] = $val->id;
+            $tmp['link'] = $val->link;
+            $tmp['title'] = $val->title;
+            $tmp['link_part'] = $val->link_part;
+            $tmp['display_flg'] = $val->display_flg;
+            $tmp['created_at'] = $val->created_at;
+            $tmp['updated_at'] = $val->updated_at;
+            $data[$k] = $tmp;
+
+        }
         return view('/management/information/index', compact('data'));
     }
 
@@ -307,6 +320,7 @@ class ManagementController extends Controller
 
         $information->link = $request->link;
         $information->title = $request->title;
+        $information->link_part = $request->link_part;
 
         $information->save();
 
@@ -319,11 +333,18 @@ class ManagementController extends Controller
         $id = $request->id;
         $link = $request->link;
         $title = $request->title;
+        $link_part = $request->link_part;
+        if(isset($request->display_flg)){
+            $display_flg= $request->display_flg;
+        }else{
+            $display_flg= 0;
+        }
 
         Information::where('id', '=', $id)->update([
             'link' => $link,
             'title' => $title,
-
+            'link_part' => $link_part,
+            'display_flg' => $display_flg,
         ]);
 
         return redirect('/management/information/index');

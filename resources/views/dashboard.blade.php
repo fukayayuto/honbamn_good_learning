@@ -98,10 +98,24 @@
             <tbody>
                 @if (!empty($information_data))
                 @foreach ($information_data as $item)
-                <tr>
-                    <th>{{$item->created_at}}</th>
-                    <th><a href="{{$item->link}}">{{$item->title}}</a></th>
-                </tr>
+                    @if ($item['display_flg'] == 1)
+                           
+                        <tr>
+                            <th>{{$item['created_at']}}</th>
+                            <th>
+                                @if (isset($item['part_first']))
+                                    {{$item['part_first']}}
+                                @endif
+                                <a href="{{$item['link']}}">
+                                    {{$item['link_part']}}
+                                </a>
+                                @if (isset($item['part_final']))
+                                    {{$item['part_final']}}
+                                @endif
+                            </th>
+                        </tr>
+
+                    @endif
 
 
                 @endforeach

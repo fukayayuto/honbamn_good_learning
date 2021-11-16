@@ -20,8 +20,9 @@
     <div class="container">
         <form action="{{ route('information_store') }}" method="post">
             @csrf
-            <textarea name="link" id="link" cols="50" rows="3" placeholder="URL"></textarea>
-            <textarea name="title" id="title" cols="50" rows="3" placeholder="TITLE"></textarea>
+            <textarea name="link" id="link" cols="50" rows="3" placeholder="URL" required></textarea>
+            <textarea name="title" id="title" cols="50" rows="3" placeholder="TITLE" required></textarea>
+            <textarea name="link_part" id="link_part" cols="50" rows="3" placeholder="URL部分" required></textarea>
             <button class="submit">新規登録</button>
         </form>
     </div>
@@ -35,8 +36,10 @@
                     <td>ID</td>
                     <td>URL</td>
                     <td>タイトル</td>
+                    <td>URL部分</td>
                     <td>作成日時</td>
                     <td>更新日時</td>
+                    <td>表示フラグ</td>
                     <td></td>
                 </tr>
             </thead>
@@ -45,12 +48,18 @@
                 @if (!empty($data))
                     @foreach ($data as $item)
                         <tr>
-                            <td>{{ $item->id }}</td>
-                            <td> <a href="{{ $item->link }}">{{ $item->link }}</a></td>
-                            <td>{{ $item->title }}</td>
-                            <td>{{ $item->created_at }}</td>
-                            <td>{{ $item->updated_at }}</td>
-                            <td><a href="/management/information/detail/{{ $item->id }}"><button>編集</button></a>
+                            <td>{{ $item['id'] }}</td>
+                            <td> <a href="{{ $item['link'] }}">{{ $item['link'] }}</a></td>
+                            <td>{{ $item['title'] }}</td>
+                            <td>{{ $item['link_part'] }}</td>
+                            <td>{{ $item['created_at'] }}</td>
+                            <td>{{ $item['updated_at'] }}</td>
+                            @if ($item['display_flg'] == 1)
+                                <td>表示</td>
+                            @else
+                                <td>非表示</td>
+                            @endif
+                            <td><a href="/management/information/detail/{{ $item['id'] }}"><button>編集</button></a>
                             </td>
                         </tr>
                     @endforeach

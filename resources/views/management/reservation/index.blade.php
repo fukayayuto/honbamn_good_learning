@@ -26,9 +26,9 @@
                 <option value="11">三重県</option>
                 <option value="21">京都府</option>
             </select>
-            開始日：<input type="date" name="start_date" id="start_date">
-            所用日数：<input type="number" name="progress" id="progress" min="1" max="100">
-            席数：<input type="number" name="count" id="count" min="1" max="100">
+            開始日：<input type="date" name="start_date" id="start_date" required>
+            所用日数：<input type="number" name="progress" id="progress" min="1" max="100" required>
+            席数：<input type="number" name="count" id="count" min="1" max="100" required>
             <button class="submit">新規登録</button>
         </form>
     </div>

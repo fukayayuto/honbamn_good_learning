@@ -17,6 +17,8 @@ class CreateInformationTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('link');
+            $table->string('link_part');
+            $table->string('display_flg');
             $table->timestamps();
         });
     }

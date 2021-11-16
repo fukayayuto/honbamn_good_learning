@@ -926,7 +926,8 @@ class ReservationController extends Controller
     //予約確認後、予約内容登録する
     public function reservation_register_store(Request $request)
     {
-
+        //枠数以上のエントリーを防止
+        
 
         //顧客内容をアカウントに登録
         if (!is_null($request->user_flg)) {

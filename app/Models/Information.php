@@ -26,11 +26,28 @@ class Information extends Model
         return $data;
     }
 
-     //全項目選択
-     public function getInfo($id)
-     {
-         $data = Information::where('id', '=', $id)->first();
+    //全項目選択
+    public function getInfo($id)
+    {
+        $data = Information::where('id', '=', $id)->first();
 
-         return $data;
-     }
+        return $data;
+    }
+
+    //最新データ取得
+    public function getLatestData($count)
+    {
+        $data = Information::where('display_flg', '=', 1)->latest()->limit($count)->get();
+
+        return $data;
+    }
+
+    //優先データ取得
+    public function getPriorityData()
+    {
+        $data = Information::where('display_flg', '=', 1)
+        ->where('display_rank', '=', 2)->latest()->limit(6)->get();
+
+        return $data;
+    }
 }

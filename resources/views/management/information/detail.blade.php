@@ -30,6 +30,7 @@
                         <td>作成日時</td>
                         <td>更新日時</td>
                         <td>表示フラグ</td>
+                        <td>優先ランク</td>
                     </tr>
                 </thead>
 
@@ -38,9 +39,9 @@
                         <tr>
                             <td>{{ $data->id }}</td>
                             <input type="hidden" name="id" id="id" value="{{ $data->id }}">
-                            <td><textarea name="link" id="link" cols="50" rows="3" required>{{ $data->link }}</textarea></td>
-                            <td><textarea name="title" id="title" cols="50" rows="3" required>{{ $data->title }}</textarea>
-                            <td><textarea name="link_part" id="link_part" cols="50" rows="3" required>{{ $data->link_part }}</textarea>
+                            <td><textarea name="link" id="link" cols="30" rows="3" required>{{ $data->link }}</textarea></td>
+                            <td><textarea name="title" id="title" cols="30" rows="3" required>{{ $data->title }}</textarea>
+                            <td><textarea name="link_part" id="link_part" cols="30" rows="3">{{ $data->link_part }}</textarea>
                             </td>
                             <td>{{ $data->created_at }}</td>
                             <td>{{ $data->updated_at }}</td>
@@ -50,6 +51,16 @@
                                 @else
                                 <input type="checkbox" name="display_flg" id="display_flg" value="1">
                                 @endif
+                            </td>
+                            <td>
+                                <select name="display_rank" id="display_rank">
+                                    <option value="1" <?php if ($data->display_rank == 1) {
+                                        echo ' selected';
+                                    } ?>>通常</option>
+                                    <option value="2" <?php if ($data->display_rank == 2) {
+                                        echo ' selected';
+                                    } ?>>優先</option>
+                                </select>
                             </td>
                         </tr>
                     @endif

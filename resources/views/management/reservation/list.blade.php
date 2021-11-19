@@ -82,8 +82,7 @@
                     <td>予約人数</td>
                     <td>エントリーID</td>
                     <td>ユーザーID</td>
-                    <td>名字</td>
-                    <td>名前</td>
+                    <td>氏名</td>
                     <td>メールアドレス</td>
                     <td>会社名</td>
                     <td>営業所</td>
@@ -113,8 +112,7 @@
                                 <a href="/management/user/detail/{{ $val['user_id'] }}/{{ $val['user_flg'] }}">{{ $val['user_id'] }}
                                 </a>
                             </td>
-                            <td>{{ $val['family_name'] }}</td>
-                            <td>{{ $val['first_name'] }}</td>
+                            <td>{{ $val['name'] }}</td>
                             <td>{{ $val['email'] }}</td>
                             <td>{{ $val['company_name'] }}</td>
                             @if (!empty($val['sales_office']))

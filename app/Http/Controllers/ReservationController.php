@@ -180,8 +180,7 @@ class ReservationController extends Controller
         //     $user = Auth::user();
         // }
 
-        $account->family_name = $request->family_name;
-        $account->first_name = $request->first_name;
+        $account->name = $request->name;
         $account->email = $request->email;
         $account->company_name = $request->company_name;
         if (!empty($request->sales_office)) {
@@ -205,7 +204,7 @@ class ReservationController extends Controller
         $mail_text = 'メールテストで使いたい文章を記載';
         $mail_adress = $account->email;
         // $user_name = 'testoooo';
-        $m_user_name = $user->family_name . $user->first_name;
+        $m_user_name = $user->name . $user->name;
         $m_company_name = $account->company_name;
         $m_reservation_date = $reservation->reservation_date;
         $m_reservation_count = $reservation->count;
@@ -395,8 +394,7 @@ class ReservationController extends Controller
 
         $account = new Account();
 
-        $account->family_name = $user['family_name'];
-        $account->first_name = $user['first_name'];
+        $account->name = $user['name'];
         $account->email = $user['email'];
         $account->company_name = $user['company_name'];
         if (!empty($user['sales_office'])) {
@@ -772,7 +770,7 @@ class ReservationController extends Controller
 
         //ログイン情報
         if (empty(Auth::user())) {
-            return view('/404');
+            return view('/auth/login')->with('flg',true);
         }
         $user = Auth::user();
 
@@ -933,8 +931,7 @@ class ReservationController extends Controller
         if (!is_null($request->user_flg)) {
             $account = new Account();
 
-            $account->family_name = $request->family_name;
-            $account->first_name = $request->first_name;
+            $account->name = $request->name;
             $account->email = $request->email;
             $account->company_name = $request->company_name;
             if (!empty($request->sales_office)) {
@@ -1104,19 +1101,26 @@ class ReservationController extends Controller
         $count = $request->count;
         $user_flg = 0;
 
-        $validator = Validator::make($request->all(), [
-            'family_name' => ['required', 'string'],
-            'first_name' => ['required', 'string'],
-            'email' => ['required', 'email'],
-            'company_name' => ['required', 'string'],
-            'sales_office' => ['string', 'nullable'],
-            'phone' => ['required', 'string', 'regex:/^[0-9]+$/', 'between:8,11'],
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'family_name' => ['required', 'string'],
+        //     'first_name' => ['required', 'string'],
+        //     'email' => ['required', 'email'],
+        //     'company_name' => ['required', 'string'],
+        //     'sales_office' => ['string', 'nullable'],
+        //     'phone' => ['required', 'string', 'regex:/^[0-9]+$/', 'between:8,11'],
+        // ]);
+
+        // if ($validator->fails()) {
+        //     return redirect('/')
+        //     ->withErrors($validator)
+        //     ->withInput();
+        // } else {
+        //     return view('sample.index', ['msg' => 'OK']);
+        // }
 
         //顧客情報
         $user = new Account();
-        $user->family_name = $request->family_name;
-        $user->first_name = $request->first_name;
+        $user->name = $request->name;
         $user->email = $request->email;
         $user->company_name = $request->company_name;
         $user->phone = $request->phone;
@@ -1253,7 +1257,7 @@ class ReservationController extends Controller
         }
 
 
-        return view('/reservation/mie/check',compact('data','user'))->with('user_flg',$user_flg);
+        return view('/reservation/mie/check', compact('data', 'user'))->with('user_flg', $user_flg);
     }
 
     public function mie_reservation_store_post(Request $request)
@@ -1269,17 +1273,15 @@ class ReservationController extends Controller
 
         $entry->save();
 
-        if(isset($request->reservation_2)){
-        $entry = new Entry();
-        $entry->user_id = $user_id;
-        $entry->reservation_id =  $request->reservation_2;
-        $entry->count =  $request->count_2;
-        $entry->user_flg = 1;
+        if (isset($request->reservation_2)) {
+            $entry = new Entry();
+            $entry->user_id = $user_id;
+            $entry->reservation_id =  $request->reservation_2;
+            $entry->count =  $request->count_2;
+            $entry->user_flg = 1;
 
-        $entry->save();
+            $entry->save();
         }
         return redirect('/dashboard');
-
     }
-
 }

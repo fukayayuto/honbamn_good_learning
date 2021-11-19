@@ -101,7 +101,7 @@
                 <tbody>
                     <tr>
                         <th>名前</th>
-                        <th>{{ $user->family_name }} {{ $user->first_name }}様</th>
+                        <th>{{ $user->name }}様</th>
                     </tr>
                 </tbody>
 

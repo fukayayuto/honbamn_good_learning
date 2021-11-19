@@ -34,12 +34,8 @@
             <tbody>
 
                 <tr>
-                    <td>名字</td>
-                    <td>{{ $data->family_name }}</td>
-                </tr>
-                <tr>
-                    <td>名前</td>
-                    <td>{{ $data->first_name }}</td>
+                    <td>氏名</td>
+                    <td>{{ $data->name }}</td>
                 </tr>
                 <tr>
                     <td>メールアドレス</td>

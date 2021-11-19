@@ -1,22 +1,35 @@
-<x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
 
-        <x-jet-validation-errors class="mb-4" />
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="container">
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
-            <div>
+            {{-- <div>
                 <x-jet-label for="family_name" value="{{ __('family_name') }}" />
                 <x-jet-input id="family_name" class="block mt-1 w-full" type="text" name="family_name" required autofocus />
             </div>
 
             <div>
-                <x-jet-label for="first_name" value="{{ __('first_name') }}" />
-                <x-jet-input id="first_name" class="block mt-1 w-full" type="text" name="first_name" required autofocus />
+                <x-jet-label for="name" value="{{ __('name') }}" />
+                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" required autofocus />
             </div>
 
             <div class="mt-4">
@@ -47,9 +60,43 @@
             <div>
                 <x-jet-label for="phone" value="{{ __('Phone') }}" />
                 <x-jet-input id="phone" class="block mt-1 w-full" type="text" name="phone" required autofocus />
-            </div>
+            </div> --}}
 
-            @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
+            <div class="form-group">
+                <label>氏名</label>
+                <input type="text" class="form-control" id="name" placeholder="氏名" name="name" required>
+            </div>
+            <div class="form-group">
+                <label>メールアドレス</label>
+                <input type="email" class="form-control" id="email" placeholder="メールアドレス" name="email" required>
+            </div>
+            <div class="form-group">
+                <label>パスワード</label>
+                <input type="password" class="form-control" id="password" placeholder="パスワード" name="password" required>
+            </div>
+            <div class="form-group">
+                <label>パスワード(確認用)</label>
+                <input type="password" class="form-control" id="password_confirmation" placeholder="パスワード(確認用)" name="password_confirmation" required>
+            </div>
+            <div class="form-group">
+                <label>会社名</label>
+                <input type="text" class="form-control" id="company_name" placeholder="会社名" name="company_name" required>
+            </div>
+            <div class="form-group">
+                <label>営業所</label>
+                <input type="text" class="form-control" id="sales_office" placeholder="営業所" name="sales_office" required>
+            </div>
+            <div class="form-group">
+                <label>電話番号</label>
+                <input type="text" class="form-control" id="phone" placeholder="電話番号" name="phone" required>
+                <small id="phoneHelp" class="form-text text-muted">ハイフンなしで入力してください</small>
+            </div>
+            <button type="submit" class="btn btn-primary">新規登録</button>
+        </form>
+    </div>
+</html>
+
+            {{-- @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mt-4">
                     <x-jet-label for="terms">
                         <div class="flex items-center">
@@ -64,17 +111,14 @@
                         </div>
                     </x-jet-label>
                 </div>
-            @endif
-
+            @endif --}}
+{{-- 
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
                 </a>
 
-                <x-jet-button class="ml-4">
-                    {{ __('Register') }}
-                </x-jet-button>
-            </div>
-        </form>
-    </x-jet-authentication-card>
-</x-guest-layout>
+                
+            </div> --}}
+       
+

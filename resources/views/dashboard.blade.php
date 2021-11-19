@@ -13,7 +13,7 @@
                                 ログアウト
                             </button>
                         </form>
-                        {{$user->family_name}} {{$user->first_name}}様<br>
+                        {{$user->name}} 様<br>
                     </div>
                 </div>
             </div>
@@ -96,28 +96,56 @@
             </thead>
 
             <tbody>
-                @if (!empty($information_data))
-                @foreach ($information_data as $item)
-                    @if ($item['display_flg'] == 1)
-                           
-                        <tr>
-                            <th>{{$item['created_at']}}</th>
-                            <th>
-                                @if (isset($item['part_first']))
-                                    {{$item['part_first']}}
-                                @endif
+
+                @if (!empty($information_priority_data))
+                    @foreach ($information_priority_data as $item)
+                    <tr>
+                        <th>{{$item['created_at']}}</th>
+                        <th>
+                            @if (isset($item['part_first']))
+                                {{$item['part_first']}}
+                            @endif
+
+                            @if (isset($item['link_part']))
                                 <a href="{{$item['link']}}">
                                     {{$item['link_part']}}
                                 </a>
-                                @if (isset($item['part_final']))
-                                    {{$item['part_final']}}
-                                @endif
-                            </th>
-                        </tr>
+                            @else
+                                    {{$item['title']}}
+                            @endif
+                        
+                            @if (isset($item['part_final']))
+                                {{$item['part_final']}}
+                            @endif
+                        </th>
+                    </tr>
+                    @endforeach
+                    
+                @endif
 
-                    @endif
 
+                @if (!empty($information_data))
+                @foreach ($information_data as $item)
+                    <tr>
+                        <th>{{$item['created_at']}}</th>
+                        <th>
+                            @if (isset($item['part_first']))
+                                {{$item['part_first']}}
+                            @endif
 
+                            @if (isset($item['link_part']))
+                                <a href="{{$item['link']}}"　target="_blank">
+                                    {{$item['link_part']}}
+                                </a>
+                            @else
+                                    {{$item['title']}}
+                            @endif
+                        
+                            @if (isset($item['part_final']))
+                                {{$item['part_final']}}
+                            @endif
+                        </th>
+                    </tr>
                 @endforeach
 
 

@@ -93,8 +93,7 @@
                     </tr>
                 </thead>
                 <input type="hidden" name="user_id" value="{{ $user }}">
-                <input type="hidden" name="family_name" value="{{ $user->family_name }}">
-                <input type="hidden" name="first_name" value="{{ $user->first_name }}">
+                <input type="hidden" name="name" value="{{ $user->name }}">
                 <input type="hidden" name="email" value="{{ $user->email }}">
                 <input type="hidden" name="company_name" value="{{ $user->company_name }}">
                 <input type="hidden" name="sales_office" value="{{ $user->sales_office }}">
@@ -102,8 +101,8 @@
 
                 <tbody>
                     <tr>
-                        <th>名前</th>
-                        <th>{{ $user->family_name }} {{ $user->first_name }}様</th>
+                        <th>氏名</th>
+                        <th>{{ $user->name }}様</th>
                     </tr>
                 </tbody>
 

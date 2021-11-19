@@ -12,8 +12,12 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('myLogin') }}">
             @csrf
+
+            @if ($flg)
+                <input type="hidden" name="flg" id="flg" value="{{ $flg ?? '' }}">
+            @endif
 
             <div>
                 <x-jet-label for="email" value="{{ __('Email') }}" />

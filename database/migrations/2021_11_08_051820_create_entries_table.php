@@ -21,6 +21,8 @@ class CreateEntriesTable extends Migration
             $table->integer('count');
             $table->integer('user_flg');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

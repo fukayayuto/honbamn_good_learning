@@ -22,8 +22,7 @@
             <thead>
                 <tr class="success">
                     <td>ID</td>
-                    <td>名字</td>
-                    <td>名前</td>
+                    <td>氏名</td>
                     <td>メールアドレス</td>
                     <td>会社名</td>
                     <td>営業所</td>
@@ -37,8 +36,7 @@
                 @foreach ($user_data as $data)
                     <tr>
                         <td><a href="/management/user/detail/{{ $data->id }}/1">{{ $data->id }}</a></td>
-                        <td>{{ $data->family_name }}</td>
-                        <td>{{ $data->first_name }}</td>
+                        <td>{{ $data->name }}</td>
                         <td>{{ $data->email }}</td>
                         <td>{{ $data->company_name }}</td>
                         @if ($data->sales_office)
@@ -60,8 +58,7 @@
             <thead>
                 <tr class="table-secondary">
                     <td>ID</td>
-                    <td>名字</td>
-                    <td>名前</td>
+                    <td>氏名</td>
                     <td>メールアドレス</td>
                     <td>会社名</td>
                     <td>営業所</td>
@@ -74,8 +71,7 @@
                 @foreach ($account_data as $data)
                     <tr>
                         <td><a href="/management/user/detail/{{ $data->id }}/0">{{ $data->id }}</a></td>
-                        <td>{{ $data->family_name }}</td>
-                        <td>{{ $data->first_name }}</td>
+                        <td>{{ $data->name }}</td>
                         <td>{{ $data->email }}</td>
                         <td>{{ $data->company_name }}</td>
                         @if ($data->sales_office)

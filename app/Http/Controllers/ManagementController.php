@@ -252,8 +252,7 @@ class ManagementController extends Controller
                 $user = new User();
                 $user_data = $user->selectUser($val->user_id);
                 $tmp['user_id'] = $user_data->id;
-                $tmp['family_name'] = $user_data->family_name;
-                $tmp['first_name'] = $user_data->first_name;
+                $tmp['name'] = $user_data->name;
                 $tmp['email'] = $user_data->email;
                 $tmp['company_name'] = $user_data->company_name;
                 $tmp['phone'] = $user_data->phone;
@@ -265,8 +264,7 @@ class ManagementController extends Controller
                 $account = new Account();
                 $account_data = $account->getAccount($val->account_id);
                 $tmp['user_id'] = $account_data->id;
-                $tmp['family_name'] = $account_data->family_name;
-                $tmp['first_name'] = $account_data->first_name;
+                $tmp['name'] = $account_data->name;
                 $tmp['email'] = $account_data->email;
                 $tmp['company_name'] = $account_data->company_name;
                 $tmp['phone'] = $account_data->phone;
@@ -292,17 +290,17 @@ class ManagementController extends Controller
         $information = new Information();
         $information_data = $information->getAllData();
         $data = [];
-        foreach ($information_data as $k => $val){
+        foreach ($information_data as $k => $val) {
             $tmp = [];
             $tmp['id'] = $val->id;
             $tmp['link'] = $val->link;
             $tmp['title'] = $val->title;
             $tmp['link_part'] = $val->link_part;
             $tmp['display_flg'] = $val->display_flg;
+            $tmp['display_rank'] = $val->display_rank;
             $tmp['created_at'] = $val->created_at;
             $tmp['updated_at'] = $val->updated_at;
             $data[$k] = $tmp;
-
         }
         return view('/management/information/index', compact('data'));
     }
@@ -320,7 +318,11 @@ class ManagementController extends Controller
 
         $information->link = $request->link;
         $information->title = $request->title;
-        $information->link_part = $request->link_part;
+        if (isset($request->link_part)) {
+            $information->link_part = $request->link_part;
+        } else {
+            $information->link_part = null;
+        }
 
         $information->save();
 
@@ -333,18 +335,23 @@ class ManagementController extends Controller
         $id = $request->id;
         $link = $request->link;
         $title = $request->title;
-        $link_part = $request->link_part;
-        if(isset($request->display_flg)){
+        $display_flg= 0;
+        if ($request->display_flg == 1) {
             $display_flg= $request->display_flg;
-        }else{
-            $display_flg= 0;
         }
+        $display_rank= $request->display_rank;
+        $link_part = '';
+        if (isset($request->link_part)) {
+            $link_part= $request->link_part;
+        }
+        
 
         Information::where('id', '=', $id)->update([
             'link' => $link,
             'title' => $title,
             'link_part' => $link_part,
             'display_flg' => $display_flg,
+            'display_rank' => $display_rank,
         ]);
 
         return redirect('/management/information/index');
@@ -388,7 +395,6 @@ class ManagementController extends Controller
 
             $entry = new Entry();
             $entry_data = $entry->getUserEntry($id);
-
         } else {
             $account = new Account();
             $data = $account->getAccount($id);
@@ -398,13 +404,10 @@ class ManagementController extends Controller
 
             $entry_data = [];
 
-            foreach ($entry_data as $val){
+            foreach ($entry_data as $val) {
                 $reservation = new ReservationSetting();
                 $reservation_data = $reservation->selectReservation($val['id']);
-                
             }
-
-
         }
         return view('/management/user/detail', compact('data'));
     }

@@ -31,13 +31,10 @@
             <input type="hidden" name="count" value="{{ $count }}">
             <input type="hidden" name="reservation_id" value="{{ $reservation_id }}">
             <input type="hidden" name="user_flg" value=0>
+            
             <div class="form-group">
-                <label>名字</label>
-                <input type="text" class="form-control" id="family_name" placeholder="名字" name="family_name">
-            </div>
-            <div class="form-group">
-                <label>名前</label>
-                <input type="text" class="form-control" id="first_name" placeholder="名前" name="first_name">
+                <label>氏名</label>
+                <input type="text" class="form-control" id="name" placeholder="氏名" name="name">
             </div>
             <div class="form-group">
                 <label>メールアドレス</label>

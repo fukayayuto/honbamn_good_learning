@@ -11,13 +11,13 @@ class EntryController extends Controller
 {
     public function delete($id)
     {
-
         $entry = new Entry();
-        if(is_numeric($id)){
-            // $entry->where('id', $id)->delete();
+        if (is_numeric($id)) {
+            Entry::where('id', '=', $id)->update([
+                'del_flg' => 1,
+            ]);
         }
 
         return redirect()->route('home');
     }
-
 }

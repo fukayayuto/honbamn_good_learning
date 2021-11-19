@@ -22,7 +22,7 @@
             @csrf
             <textarea name="link" id="link" cols="50" rows="3" placeholder="URL" required></textarea>
             <textarea name="title" id="title" cols="50" rows="3" placeholder="TITLE" required></textarea>
-            <textarea name="link_part" id="link_part" cols="50" rows="3" placeholder="URL部分" required></textarea>
+            <textarea name="link_part" id="link_part" cols="50" rows="3" placeholder="URL部分"></textarea>
             <button class="submit">新規登録</button>
         </form>
     </div>
@@ -40,6 +40,7 @@
                     <td>作成日時</td>
                     <td>更新日時</td>
                     <td>表示フラグ</td>
+                    <td>優先ランク</td>
                     <td></td>
                 </tr>
             </thead>
@@ -59,6 +60,13 @@
                             @else
                                 <td>非表示</td>
                             @endif
+                            @switch($item['display_rank'])
+                                @case(2)
+                                    <td>優先</td>
+                                    @break
+                                @default
+                                    <td>通常</td>
+                            @endswitch
                             <td><a href="/management/information/detail/{{ $item['id'] }}"><button>編集</button></a>
                             </td>
                         </tr>

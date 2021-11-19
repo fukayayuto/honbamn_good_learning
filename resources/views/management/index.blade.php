@@ -15,8 +15,9 @@
 
 <body>
     <div class="container">
-        <a href="/management/reservation/index">予約管理画面</a><br>
-        <a href="/management/information/index">インフォメーション管理画面</a><br>
+        <br>
+        <a href="/management/reservation/index">予約管理画面</a><br><br>
+        <a href="/management/information/index">インフォメーション管理画面</a><br><br>
         <a href="/management/user/index">ユーザー管理画面</a><br>
     </div>
 </body>

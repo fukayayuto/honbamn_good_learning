@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MailableController;
@@ -31,6 +32,9 @@ use App\Mail\MailTest;
 // });
 
 Route::get('/', [ReservationController::class, 'home'])->name('home');
+
+//自作ログイン機能
+Route::get("/my-login", [LoginController::class, "index"])->name("myLogin");
 
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
@@ -173,7 +177,6 @@ Route::post('/reservation/register/store', [ReservationController::class, 'reser
 
 //予約確認後、予約内容登録する
 Route::get('/reservation/register/store', [ReservationController::class, 'reservation_register_store_get']);
-
 
 
 

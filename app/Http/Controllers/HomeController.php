@@ -47,33 +47,61 @@ class HomeController extends Controller
             $data[$k] = $tmp;
         }
 
-        //インフォメーション
+
+        //インフォメーション優先項目
         $information = new Information();
-        $information_datas = $information->getData();
+        $information_datas = $information->getPriorityData();
 
-        $information_data = [];
 
-        foreach ($information_datas as $k => $val){
+        $information_priority_data = [];
+        $count = 6;
+
+        foreach ($information_datas as $k => $val) {
             $tmp = [];
             $title = $val->title;
             $link_part = $val->link_part;
-            $part_first = strstr($title,$link_part,true);
-            $left_part = strstr($title,$link_part);
+            $part_first = strstr($title, $link_part, true);
+            $left_part = strstr($title, $link_part);
             $word_count = mb_strlen($link_part);
             $part_final = mb_substr($left_part, $word_count);
+            $date = new Carbon($val->created_at);
 
             $tmp['title'] = $title;
             $tmp['link_part'] = $link_part;
             $tmp['link'] = $val->link;
             $tmp['part_first'] = $part_first;
             $tmp['part_final'] = $part_final;
-            $tmp['created_at'] = $val->created_at;
-            $tmp['display_flg'] = $val->display_flg;
-            $information_data[$k] = $tmp;
-
+            $tmp['created_at'] = $date->format('Y.m.d');
+            $count = $count - 1;
+            $information_priority_data[$k] = $tmp;
         }
 
-        return view('/dashboard', compact('data', 'user', 'information_data'));
+
+        $information = new Information();
+        $information_datas = $information->getLatestData($count);
+
+        $information_data = [];
+
+        foreach ($information_datas as $k => $val) {
+            $tmp = [];
+            $title = $val->title;
+            $link_part = $val->link_part;
+            $part_first = strstr($title, $link_part, true);
+            $left_part = strstr($title, $link_part);
+            $word_count = mb_strlen($link_part);
+            $part_final = mb_substr($left_part, $word_count);
+            $date = new Carbon($val->created_at);
+
+            $tmp['title'] = $title;
+            $tmp['link_part'] = $link_part;
+            $tmp['link'] = $val->link;
+            $tmp['part_first'] = $part_first;
+            $tmp['part_final'] = $part_final;
+            $tmp['created_at'] = $date->format('Y.m.d');
+            $information_data[$k] = $tmp;
+        }
+
+        return view('/dashboard', compact('data', 'user', 'information_data', 'information_priority_data'));
     }
 
     public function reservation_detail($id)
@@ -87,6 +115,6 @@ class HomeController extends Controller
         $progress = (int) $reservation_data->progress;
         $s_date = new Carbon($start_date);
         $end_date= $s_date->addDays($progress)->format('Y-m-d');
-        return view('/reservation/detail',compact('data'))->with('start_date',$start_date)->with('end_date',$end_date);
+        return view('/reservation/detail', compact('data'))->with('start_date', $start_date)->with('end_date', $end_date);
     }
 }

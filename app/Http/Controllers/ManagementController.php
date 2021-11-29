@@ -411,4 +411,12 @@ class ManagementController extends Controller
         }
         return view('/management/user/detail', compact('data'));
     }
+
+    public function mail_index()
+    {
+        $account = new Account();
+        $data = $account->getData();
+
+        return view('/management/mail/index', compact('data'));
+    }
 }

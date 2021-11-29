@@ -134,7 +134,7 @@
                             @endif
 
                             @if (isset($item['link_part']))
-                                <a href="{{$item['link']}}"　target="_blank">
+                                <a href="{{$item['link']}}"　target="_blank"　rel=“noopener”>
                                     {{$item['link_part']}}
                                 </a>
                             @else

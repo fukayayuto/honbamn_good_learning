@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Eラーニング</title>
+    <title>Laravel × FullCalendar</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -33,7 +33,6 @@
 </head>
 
 <body>
-
 
     {{-- <div class="card"　style="margin-bottom: 300px;">
             <div class="card-body">
@@ -69,7 +68,7 @@
                 </tr>
             </thead>
 
-            <form action="{{ route('reservation_register_check') }}" method="POST" 　>
+            <form action="{{ route('nomember_account') }}" method="POST" 　>
                 {{ csrf_field() }}
 
                 @if (!@empty($new_reservation))
@@ -80,12 +79,7 @@
                         @foreach ($new_reservation as $data)
 
                             <input type="hidden" name="id" value="{{ $data->id }}" />
-                            @if ($data->place == 1)
-                                <input type="hidden" name="user_flg" value=1 />
-                            @else
-                                <input type="hidden" name="user_flg" value=0 />
-                            @endif
-
+                            
                             <tr>
                                 @switch($data->place)
                                     @case(2)
@@ -156,10 +150,15 @@
 
                     </tbody>
 
+
+
+
+
+
                     <div class="container">
                         <div class="row">
                             <div class="col text-center">
-                                <button class="btn btn-default" 　type="submit">予約確認画面へ</button>
+                                <button class="btn btn-default" 　type="submit">顧客情報入力画面へ</button>
                             </div>
                         </div>
                     </div>
@@ -170,53 +169,6 @@
                 @endif
 
             </form>
-
-            <div class="container">
-                <div class="row">
-                    <div class="col text-left">
-                        <a href="/reservation/mie/index"><button class="btn btn-default">三重県にて予約する(会員専用)</button><br><br></a>
-                        <a href="/reservation/kyoto/index"><button class="btn btn-default">京都府にて予約する(会員専用)</button><br></a>
-
-                    </div>
-                </div>
-            </div>
-
-
-
-
-
-
-
-            {{-- <tbody>
-                @foreach ($data as $d)
-     　　　　　　
-                <tr>
-                    @switch($d->place)
-                        @case(2)
-                            <th>非会員用</th>
-                            @break
-                        @case(11)
-                            <th>三重県</th>
-                            @break
-                        @case(21)
-                            <th>京都府</th>
-                        @break
-                        @default
-                            <th>会員用</th>
-                            
-                    @endswitch
-                  {{-- <th>三重県</th> --}}
-            {{-- <td>{{$d->start_date}}　〜　{{$end_date[$d->id] ?? ''}} </td> --}}
-            {{-- <td>{{$end_date[$d->id] ?? ''}} </td> --}}
-            {{-- @if ($empty_seat[$d->id] != 0) --}}
-            {{-- <td><a href="/reservation/check/{{$d->id}}/"><button>予約 : 残り座席{{$empty_seat[$d->id]}}人</button></a></td> --}}
-            {{-- @else --}}
-            {{-- <td>定員満員のため予約不可</td> --}}
-            {{-- <td>{{$new_reservation->id}}</td> --}}
-            {{-- @endif
-                </tr>
-                @endforeach --}}
-            {{-- </tbody> --}}
 
 
         </table>
@@ -249,7 +201,7 @@
                 },
                 noEventsContent: 'スケジュールはありません',
 
-                events: "/setEvents",
+                events: "/setEvents/entry",
 
             });
             calendar.render();

@@ -14,12 +14,19 @@
 </head>
 
 <body>
+
     <div class="container">
-        <br>
-        <a href="/management/reservation/index">予約管理画面</a><br><br>
-        <a href="/management/information/index">インフォメーション管理画面</a><br><br>
-        <a href="/management/user/index">ユーザー管理画面</a><br><br>
-        <a href="/management/mail/index">メール管理画面</a><br>
+            送信内容<br>
+
+            
+           
+            <label>件名:</label>
+            <label>{{$title}}</label><br>
+
+            <label>本文:</label>
+            <label>{{$mail_text}}</label><br>
+
+            <button type="submit" class="btn btn-primary">送信する</button>
     </div>
 </body>
 

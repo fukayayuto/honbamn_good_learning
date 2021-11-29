@@ -54,6 +54,8 @@
                             <a href="/reservation/index"><button ctype="button" class="btn btn-secondary">講座を予約する(会員用)</button></a>
 
                             <a href="{{route('reservation_customer_nomember_index')}}"><button ctype="button" class="btn btn-secondary">講座を予約する(会員登録せず予約)</button></a>
+
+                            <a href="{{route('reservation_entry_index')}}"><button ctype="button" class="btn btn-secondary">講座を予約する</button></a>
                         </div>
                     </div>
                 </div>

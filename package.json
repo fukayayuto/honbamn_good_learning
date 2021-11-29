@@ -22,5 +22,9 @@
     },
     "dependencies": {
         "jquery": "^3.6.0"
+    },
+    "scripts": {
+        "start": "react-scripts --openssl-legacy-provider start",
+        "build": "react-scripts --openssl-legacy-provider build"
     }
 }

@@ -34,6 +34,7 @@
     </div>
 
     <br>
+    <br>
     <div class="container">
         <form action="/management/reservation/index" method="get">
             <input type="hidden" name="search" id="search" value="1">

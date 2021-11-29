@@ -770,7 +770,7 @@ class ReservationController extends Controller
 
         //ログイン情報
         if (empty(Auth::user())) {
-            return view('/auth/login')->with('flg',true);
+            return view('/auth/login')->with('flg', true);
         }
         $user = Auth::user();
 
@@ -798,7 +798,9 @@ class ReservationController extends Controller
 
     public function reservation_customer_mie_index()
     {
-        // $count = $request->count;
+        
+
+
 
         //予約情報一覧取得
         $reservation = new ReservationSetting();
@@ -1283,5 +1285,35 @@ class ReservationController extends Controller
             $entry->save();
         }
         return redirect('/dashboard');
+    }
+
+
+    //予約画面(最新)
+    public function reservation_entry_index()
+    {
+        // $count = $request->count;
+
+        return view('/reservation/entry/index');
+  
+        //予約情報一覧取得
+        $reservation = new ReservationSetting();
+  
+        $data = $reservation->selectDef();
+
+        //予約状況を取得
+        $entry = new Entry();
+  
+        $empty_seat = [];
+        $end_date = [];
+  
+        foreach ($data as $val) {
+            $empty_seat[$val['id']] = $entry->getEmpty($val['id']);
+  
+            $start_date = new Carbon($val["start_date"]);
+            $progress = (int) $val["progress"];
+            $end_date[$val['id']] = $start_date->addDays($progress)->format('Y-m-d');
+        }
+  
+        return view('/reservation/entry/index', compact('data', 'empty_seat', 'end_date'));
     }
 }

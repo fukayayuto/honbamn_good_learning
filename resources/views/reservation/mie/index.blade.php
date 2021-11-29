@@ -77,8 +77,6 @@
                     <td hidden>ID</td>
                   </tr>
                 </thead>
-
-                  
                 
               </table>
                 <div  class="container">

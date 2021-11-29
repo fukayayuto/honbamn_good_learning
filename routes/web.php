@@ -11,6 +11,8 @@ use App\Http\Controllers\InfoController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EntryController;
 use App\Http\Controllers\ManagementController;
+use App\Http\Controllers\SetEventController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Ajax;
 use Illuminate\Support\Facades\Mail;
@@ -34,7 +36,7 @@ use App\Mail\MailTest;
 Route::get('/', [ReservationController::class, 'home'])->name('home');
 
 //自作ログイン機能
-Route::get("/my-login", [LoginController::class, "index"])->name("myLogin");
+// Route::get("/my-login", [LoginController::class, "index"])->name("myLogin");
 
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
@@ -245,6 +247,14 @@ Route::post('/reservation/mie/store/post', [ReservationController::class, 'mie_r
 Route::get('/reservation/mie/store/post', [ReservationController::class, 'mie_reservation_store_post_index']);
 
 
+//予約画面(最新)
+Route::get('/reservation/entry/index', [ReservationController::class, 'reservation_entry_index'])->name('reservation_entry_index');
+
+//カレンダー表示用のデータ取得(デフォルト)
+Route::get('/setEvents/entry', [SetEventController::class, 'setEvents_entry']);
+
+//予約画面(最新)
+Route::get('/reservation/entry/index/{id}', [ReservationController::class, 'reservation_entry_index_add']);
 
 
 
@@ -315,6 +325,35 @@ Route::get('/management/user/index', [ManagementController::class, 'user_index']
 //マネージメント画面(ユーザー詳細情報表示)
 Route::get('/management/user/detail/{id}/{user_flg}', [ManagementController::class, 'user_detail']);
 
+
+//マネージメント画面(メール送信画面表示)
+Route::get('/management/mail/index', [ManagementController::class, 'mail_index']);
+
+//マネージメント画面(メール送信画面表示)
+Route::post('/management/mail/send', [MailController::class, 'mail_send'])->name('mail_send');
+
+//マネージメント画面(メール送信画面表示)
+Route::post('/management/mail/select/index', [MailController::class, 'select_mail_index'])->name('select_mail_index');
+
+Route::get('/management/mail/select/index', [MailController::class, 'select_mail_index_all']);
+
+//選択した人向けのメール作成画面
+Route::post('/management/mail/select/create', [MailController::class, 'select_mail_create'])->name('select_mail_create');
+
+Route::get('/management/mail/select/create', [MailController::class, 'select_mail_create_get']);
+
+
+Route::post('/management/mail/select/check', [MailController::class, 'select_mail_check'])->name('select_mail_check');
+
+Route::post('/management/mail/select/send', [MailController::class, 'select_mail_send'])->name('select_mail_send');
+
+//メール履歴表示
+Route::get('/management/mail/history/index', [MailController::class, 'mail_history_index']);
+
+//メール履歴詳細表示
+Route::get('/management/mail/history/index/{id}', [MailController::class, 'mail_history_detail']);
+
+
 //****************************************************************************************************************************************************
 
 
@@ -334,5 +373,5 @@ Route::get('/admin_logout', [AdminController::class, 'logout'])->middleware('log
 
 
 Route::get('/test', function () {
-    return view('user_check');
+    return view('test');
 });

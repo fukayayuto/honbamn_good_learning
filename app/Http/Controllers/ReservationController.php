@@ -1316,4 +1316,14 @@ class ReservationController extends Controller
   
         return view('/reservation/entry/index', compact('data', 'empty_seat', 'end_date'));
     }
+
+
+    //ここから本番環境部分
+    public function reservation_store_form($id)
+    {
+        $reservation = new ReservationSetting();
+        $data = $reservation->selectReservation($id);
+
+        return view('/good_learning/reservation/form', compact('data'));
+    }
 }

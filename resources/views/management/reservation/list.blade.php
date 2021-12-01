@@ -109,7 +109,7 @@
                             <td>{{ $val['count'] }}人</td>
                             <td>{{ $val['id'] }}</td>
                             <td>
-                                <a href="/management/user/detail/{{ $val['user_id'] }}/{{ $val['user_flg'] }}">{{ $val['user_id'] }}
+                                <a href="/management/user/detail/{{ $val['account_id'] }}">{{ $val['account_id'] }}
                                 </a>
                             </td>
                             <td>{{ $val['name'] }}</td>

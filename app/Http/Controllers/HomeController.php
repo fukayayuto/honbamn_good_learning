@@ -117,4 +117,74 @@ class HomeController extends Controller
         $end_date= $s_date->addDays($progress)->format('Y-m-d');
         return view('/reservation/detail', compact('data'))->with('start_date', $start_date)->with('end_date', $end_date);
     }
+
+    public function good_learning_about_cost()
+    {
+        $reservation = new ReservationSetting();
+        $reservation_data = $reservation->getReservationData();
+
+        $data =  [];
+        foreach ($reservation_data as $k => $val) {
+            $tmp = [];
+            $tmp['id'] = $val->id;
+            $weekday = ['日', '月', '火', '水', '木', '金', '土'];
+            $progress = (int) $val->progress;
+            $start_date = new Carbon($val->start_date);
+            $tmp['start_week'] = $weekday[$start_date->dayOfWeek];
+            $tmp['start_date'] = $start_date->format('m月d日');
+            $tmp['end_date'] = $start_date->addDays($progress)->format('d日');
+            $end_date = new Carbon($start_date->addDays($progress));
+            $tmp['end_week'] = $weekday[$end_date->dayOfWeek];
+
+            $reservation = new ReservationSetting();
+            $reservation_data = $reservation->getReservationDataNomember($val->start_date);
+            if (!empty($reservation_data)) {
+                $entry = new Entry();
+                $entry_data = $entry->getEntry($reservation_data->id);
+                $count = 0;
+        
+                foreach ($entry_data as $item) {
+                    $count = $count + $item->count;
+                }
+                $tmp['id_nomember'] = $reservation_data->id;
+                $tmp['left_seat_nomember'] = $val->count - $count;
+            }
+
+            $entry = new Entry();
+            $entry_data = $entry->getEntry($val->id);
+            $count = 0;
+        
+            foreach ($entry_data as $item) {
+                $count = $count + $item->count;
+            }
+            $tmp['left_seat'] = $val->count - $count;
+
+
+
+            $today = Carbon::today();
+            $next_month = $today->addmonth();
+
+            $tmp['display_flg'] = 0;
+            if ($start_date->between(Carbon::today(), $next_month)) {
+                $tmp['display_flg'] = 1;
+            }
+
+            $data[$k] = $tmp;
+        }
+
+
+
+        return view('/good_learning/about_cost', compact('data'))->with('today', $today)->with('next_month', $next_month);
+    }
+
+
+    public function truck_index()
+    {
+        return view('/truck/index');
+    }
+
+    public function truck_price_index()
+    {
+        return view('/truck/price');
+    }
 }

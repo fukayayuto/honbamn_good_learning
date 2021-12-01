@@ -22,11 +22,7 @@
         <table class="table">
             <thead>
                 <tr class="success">
-                    @if (!empty($data->password))
-                        <td>ユーザー情報</td>
-                    @else
-                        <td>アカウント情報</td>
-                    @endif
+                    <td>アカウント情報</td>
                     <td></td>
                 </tr>
             </thead>
@@ -63,6 +59,52 @@
                 </tr>
 
             </tbody>
+        </table>
+    </div>
+
+    <div class="container">
+        <table class="table">
+            @foreach ($entry_data as $data)
+            
+                <thead>
+                    <tr class="info">
+                        <td>予約状況</td>
+                        <td></td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>予約ID</td>
+                        <td>{{$data['id']}}</td>
+                    </tr>
+                    <tr>
+                        <td>会場</td>
+                        <td>{{$data['place']}}</td>
+                    </tr>
+                    <tr>
+                        <td>開始日</td>
+                        <td>{{$data['start_date']}}</td>
+                    </tr>
+                    <tr>
+                        <td>受講期間</td>
+                        <td>{{$data['progress']}}日間</td>
+                    </tr>
+                    <tr>
+                        <td>受講人数</td>
+                        <td>{{$data['count']}}人</td>
+                    </tr>
+                    <tr>
+                        <td>予約登録日時</td>
+                        <td>{{$data['created_at']}}</td>
+                    </tr>
+                    <tr>
+                        <td>予約更新日時</td>
+                        <td>{{$data['updated_at']}}</td>
+                    </tr>
+                </tbody>
+
+            @endforeach
         </table>
     </div>
 

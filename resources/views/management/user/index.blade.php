@@ -17,41 +17,6 @@
 
     <a href="/management/index"><button>管理画面一覧に戻る</button></a>
 
-    <div class="container">
-        <table class="table">
-            <thead>
-                <tr class="success">
-                    <td>ID</td>
-                    <td>氏名</td>
-                    <td>メールアドレス</td>
-                    <td>会社名</td>
-                    <td>営業所</td>
-                    <td>電話番号</td>
-                    <td>予約登録日時</td>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                @foreach ($user_data as $data)
-                    <tr>
-                        <td><a href="/management/user/detail/{{ $data->id }}/1">{{ $data->id }}</a></td>
-                        <td>{{ $data->name }}</td>
-                        <td>{{ $data->email }}</td>
-                        <td>{{ $data->company_name }}</td>
-                        @if ($data->sales_office)
-                            <td>{{ $data->sales_office }}</td>
-                        @else
-                            <td></td>
-                        @endif
-                        <td>{{ $data->phone }}</td>
-                        <td>{{ $data->created_at }}</td>
-                    </tr>
-                @endforeach
-
-            </tbody>
-        </table>
-    </div>
 
     <div class="container">
         <table class="table">
@@ -70,8 +35,8 @@
             <tbody>
                 @foreach ($account_data as $data)
                     <tr>
-                        <td><a href="/management/user/detail/{{ $data->id }}/0">{{ $data->id }}</a></td>
-                        <td>{{ $data->name }}</td>
+                        <td>{{ $data->id }}</td>
+                        <td><a href="/management/user/detail/{{ $data->id }}">{{ $data->name }}</a></td>
                         <td>{{ $data->email }}</td>
                         <td>{{ $data->company_name }}</td>
                         @if ($data->sales_office)

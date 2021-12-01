@@ -118,7 +118,6 @@ class ReservationSetting extends Model
     //全データ取得
     public function serachReservation($array = [])
     {
-
         if (!empty($array['start_date']) && !empty($array['place'])) {
             $data = ReservationSetting::where('start_date', '=', $array['start_date'])->where('place', '=', $array['place'])->get();
             return $data;
@@ -133,5 +132,21 @@ class ReservationSetting extends Model
             $data = ReservationSetting::where('place', '=', $array['place'])->get();
             return $data;
         }
+    }
+
+    //会員用予約情報取得
+    public function getReservationData()
+    {
+        $data = ReservationSetting::where('place', '=', 1)->orderBy('start_date')->get();
+
+        return $data;
+    }
+
+    //同じ日付データ取得
+    public function getReservationDataNomember($start_date)
+    {
+        $data = ReservationSetting::where('start_date', '=', $start_date)->where('place', '=', 2)->first();
+
+        return $data;
     }
 }

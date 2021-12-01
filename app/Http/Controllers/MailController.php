@@ -127,6 +127,7 @@ class MailController extends Controller
         $account_data = [];
 
         foreach ($check_account as $k =>$id) {
+            //メール送信用
             $account = new Account();
             $data = $account->getAccount($id);
 
@@ -135,11 +136,40 @@ class MailController extends Controller
             $mail_text = $request->mail_text;
             $title  = $request->title;
 
-
             Mail::to($to)->send(new MailSend($name, $title, $mail_text));
         }
 
-        die('送信完了しました');
+        //アカウントID決定
+        $account_list = new AdressList();
+        $last_adress_id = $account_list->max('adress_id');
+        $account_id = $last_adress_id + 1;
+
+        //メールアカウントID情報登録
+        foreach ($check_account as $k =>$id) {
+            $account_list = new AdressList();
+            $account_list->adress_id = $account_id;
+            $account_list->account_id = $id;
+            $account_list->save();
+        }
+
+        //メールコンテンツ登録
+        $email_content = new EmailContent();
+        $email_content->adress_id = $account_id;
+        $email_content->title = $title;
+        $email_content->mail_text = $mail_text;
+        $email_content->save();
+
+        $email_content_id = $email_content->id;
+
+        //メール履歴登録
+        $email = new Email();
+        $email->email_content_id = $email_content_id;
+        //メールは１、SMSは２
+        $email->type = 1;
+        $email->save();
+
+
+        return redirect('/management/mail/history/index');
     }
 
     public function mail_history_index(Request $request)
@@ -154,24 +184,33 @@ class MailController extends Controller
             $tmp['type'] = $val->type == 1  ? 'メール' : 'SMS';
             $tmp['created_at'] = $val->created_at;
 
-            $adress_list = new AdressList();
-            $adress_list_data = $adress_list->getAccountList($val->adress_id);
-
-            $account = [];
-            foreach ($adress_list_data as $t => $list) {
-                $item = [];
-                $account[$t] = $list['account_id'];
-            }
-
-
-            $account = new Account();
-            $account_data = $account->getAccount($val->account_id);
-            $tmp['adress'] = $account_data->name;
-
             $email_content = new EmailContent();
             $email_content_data = $email_content->getContent($val->email_content_id);
-            $tmp['email_content'] = $email_content_data->mail_text;
+            $adress_list_id = $email_content_data->adress_id;
 
+            $adress_list = new AdressList();
+            $adress_list_data = $adress_list->getAccountList($adress_list_id);
+
+            $tmp['adress'] = '';
+            $tmp['id_list'] = [];
+
+            foreach ($adress_list_data as $t => $list) {
+                $tmp_account = [];
+                
+                $account = new Account();
+                $account_data = $account->getAccount($list->account_id);
+
+                $tmp_account['id'] = $account_data->id;
+                $tmp_account['name'] = $account_data->name;
+
+                $tmp['adress'] = $tmp['adress'] .','. $tmp_account['name'];
+                $tmp['id_list'][$t] = $account_data->id;
+            }
+            $tmp['adress'] = substr($tmp['adress'], 1);
+
+
+
+            $tmp['email_content'] = $email_content_data->mail_text;
             $tmp['content_id'] = $email_content_data->id;
 
             $data[$k] = $tmp;
@@ -184,10 +223,52 @@ class MailController extends Controller
     {
         $email_content = new EmailContent();
         $email_content_data = $email_content->getContent($id);
+        $adress_id = $email_content_data->adress_id;
+        
+        $adress_list = new AdressList();
+        $adress_list_data = $adress_list->getAccountList($adress_id);
+
+        $adress = '';
+        foreach ($adress_list_data as $val) {
+            $account = new Account();
+            $account_data = $account->getAccount($val->account_id);
+
+            $adress = $adress . ',' . $account_data->name;
+        }
+
+        $adress = substr($adress, 1);
+
         $mail_text = $email_content_data->mail_text;
         $title = $email_content_data->title;
 
 
-        return view('/management/mail/history/detail')->with('mail_text', $mail_text)->with('title', $title);
+        return view('/management/mail/history/detail')->with('mail_text', $mail_text)->with('title', $title)->with('adress', $adress);
+    }
+    
+    public function mail_history_send_list($id)
+    {
+        $email_content = new EmailContent();
+        $email_content_data = $email_content->getContent($id);
+        $adress_id = $email_content_data->adress_id;
+        
+        $adress_list = new AdressList();
+        $account_list_id= $adress_list->getAccountList($adress_id);
+
+        $account_list = [];
+        foreach ($account_list_id as $k => $val) {
+            $tmp = [];
+            $account = new Account();
+            $account_data = $account->getAccount($val->account_id);
+            $tmp['name'] = $account_data->name;
+            $tmp['email'] = $account_data->email;
+            $account_list[$k] = $tmp;
+        }
+
+        return view('/management/mail/history/send_list', compact('account_list'));
+    }
+
+    public function auto_send()
+    {
+        return 'auto_send が呼ばれました！';
     }
 }

@@ -18,7 +18,8 @@
     <div class="container">
             送信内容<br>
 
-            
+            <label>宛先:</label>
+            <label>{{$adress}}</label><br>            
            
             <label>件名:</label>
             <label>{{$title}}</label><br>
@@ -26,7 +27,7 @@
             <label>本文:</label>
             <label>{{$mail_text}}</label><br>
 
-            <button type="submit" class="btn btn-primary">送信する</button>
+            <a href="/management/mail/history/index"><button class="btn btn-primary">戻る</button></a>
     </div>
 </body>
 

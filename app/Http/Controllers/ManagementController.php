@@ -33,10 +33,30 @@ class ManagementController extends Controller
                 $reservation_data = $reservation->serachReservation($search);
 
                 $data = [];
-                foreach ($reservation_data as $k =>$val) {
+                foreach ($reservation_data as $k => $val) {
                     $tmp = [];
                     $tmp['id'] = $val->id;
-                    $tmp['place'] = $val->place;
+                    $tmp['name'] = $val->name;
+                    $tmp['place_id'] = $val->place;
+
+                    switch ($tmp['place_id']) {
+                        case 1:
+                            $tmp['place'] = '会員用';
+                            break;
+                        case 2:
+                            $tmp['place'] = '非会員用';
+                             break;
+                        case 11:
+                            $tmp['place'] = '三重県専用';
+                            break;
+                        case 21:
+                            $tmp['place'] = '京都府専用';
+                            break;
+                        default:
+                            $tmp['place'] = '会員用';
+                            break;
+                    }
+
                     $tmp['start_date'] = $val->start_date;
                     $tmp['progress'] = $val->progress;
                     $tmp['count'] = $val->count;
@@ -71,7 +91,26 @@ class ManagementController extends Controller
                 foreach ($reservation_data as $k =>$val) {
                     $tmp = [];
                     $tmp['id'] = $val->id;
-                    $tmp['place'] = $val->place;
+                    $tmp['name'] = $val->name;
+                    $tmp['place_id'] = $val->place;
+
+                    switch ($tmp['place_id']) {
+                        case 1:
+                            $tmp['place'] = '会員用';
+                            break;
+                        case 2:
+                            $tmp['place'] = '非会員用';
+                             break;
+                        case 11:
+                            $tmp['place'] = '三重県専用';
+                            break;
+                        case 21:
+                            $tmp['place'] = '京都府専用';
+                            break;
+                        default:
+                            $tmp['place'] = '会員用';
+                            break;
+                    }
                     $tmp['start_date'] = $val->start_date;
                     $tmp['progress'] = $val->progress;
                     $tmp['count'] = $val->count;
@@ -108,7 +147,26 @@ class ManagementController extends Controller
                 foreach ($reservation_data as $k =>$val) {
                     $tmp = [];
                     $tmp['id'] = $val->id;
-                    $tmp['place'] = $val->place;
+                    $tmp['name'] = $val->name;
+                    $tmp['place_id'] = $val->place;
+
+                    switch ($tmp['place_id']) {
+                        case 1:
+                            $tmp['place'] = '会員用';
+                            break;
+                        case 2:
+                            $tmp['place'] = '非会員用';
+                             break;
+                        case 11:
+                            $tmp['place'] = '三重県専用';
+                            break;
+                        case 21:
+                            $tmp['place'] = '京都府専用';
+                            break;
+                        default:
+                            $tmp['place'] = '会員用';
+                            break;
+                    }
                     $tmp['start_date'] = $val->start_date;
                     $tmp['progress'] = $val->progress;
                     $tmp['count'] = $val->count;
@@ -141,7 +199,26 @@ class ManagementController extends Controller
         foreach ($reservation_data as $k =>$val) {
             $tmp = [];
             $tmp['id'] = $val->id;
-            $tmp['place'] = $val->place;
+            $tmp['name'] = $val->name;
+            $tmp['place_id'] = $val->place;
+
+            switch ($tmp['place_id']) {
+                case 1:
+                    $tmp['place'] = '会員用';
+                    break;
+                case 2:
+                    $tmp['place'] = '非会員用';
+                     break;
+                case 11:
+                    $tmp['place'] = '三重県専用';
+                    break;
+                case 21:
+                    $tmp['place'] = '京都府専用';
+                    break;
+                default:
+                    $tmp['place'] = '会員用';
+                    break;
+            }
             $tmp['start_date'] = $val->start_date;
             $tmp['progress'] = $val->progress;
             $tmp['count'] = $val->count;
@@ -246,31 +323,16 @@ class ManagementController extends Controller
             $count = $count + $val->count;
             $tmp['user_flg'] = 0;
             $tmp['created_at'] = $val->created_at;
-
-
-            if ($val->user_flg == 1) {
-                $user = new User();
-                $user_data = $user->selectUser($val->user_id);
-                $tmp['user_id'] = $user_data->id;
-                $tmp['name'] = $user_data->name;
-                $tmp['email'] = $user_data->email;
-                $tmp['company_name'] = $user_data->company_name;
-                $tmp['phone'] = $user_data->phone;
-                $tmp['user_flg'] = 1;
-                if (!empty($user_data->sales_office)) {
-                    $tmp['sales_office'] = $user_data->sales_office;
-                }
-            } else {
-                $account = new Account();
-                $account_data = $account->getAccount($val->account_id);
-                $tmp['user_id'] = $account_data->id;
-                $tmp['name'] = $account_data->name;
-                $tmp['email'] = $account_data->email;
-                $tmp['company_name'] = $account_data->company_name;
-                $tmp['phone'] = $account_data->phone;
-                if (!empty($account_data->sales_office)) {
-                    $tmp['sales_office'] = $account_data->sales_office;
-                }
+            
+            $account = new Account();
+            $account_data = $account->getAccount($val->account_id);
+            $tmp['account_id'] = $account_data->id;
+            $tmp['name'] = $account_data->name;
+            $tmp['email'] = $account_data->email;
+            $tmp['company_name'] = $account_data->company_name;
+            $tmp['phone'] = $account_data->phone;
+            if (!empty($account_data->sales_office)) {
+                $tmp['sales_office'] = $account_data->sales_office;
             }
 
             $data[$val->id] = $tmp;
@@ -378,38 +440,60 @@ class ManagementController extends Controller
 
     public function user_index()
     {
-        $user = new User();
-        $user_data = $user->getAllData();
-
         $account = new Account();
         $account_data = $account->getAllData();
 
-        return view('/management/user/index', compact('user_data', 'account_data'));
+        return view('/management/user/index', compact('account_data'));
     }
 
-    public function user_detail($id, $user_flg)
+    public function user_detail($id)
     {
-        if ($user_flg == 1) {
-            $user = new User();
-            $data = $user->selectUser($id);
+        $account = new Account();
+        $data = $account->getAccount($id);
 
-            $entry = new Entry();
-            $entry_data = $entry->getUserEntry($id);
-        } else {
-            $account = new Account();
-            $data = $account->getAccount($id);
+        $entry = new Entry();
+        $entry_datas = $entry->getAccountEntry($id);
 
-            $entry = new Entry();
-            $entry_datas = $entry->getAccountEntry($id);
 
-            $entry_data = [];
+        $entry_data = [];
+        foreach ($entry_datas as $k => $val) {
+            $tmp = [];
+            $tmp['id'] = $val['id'];
+            $tmp['count'] = $val['count'];
+            $tmp['created_at'] = $val['created_at'];
+            $tmp['updated_at'] = $val['updated_at'];
 
-            foreach ($entry_data as $val) {
-                $reservation = new ReservationSetting();
-                $reservation_data = $reservation->selectReservation($val['id']);
+            $reservation = new ReservationSetting();
+            $reservation_data = $reservation->selectReservation($val['reservation_id']);
+            
+            $tmp['place'] = $reservation_data['place'];
+
+            switch ($tmp['place']) {
+                case 1:
+                    $tmp['place'] = '会員用';
+                    break;
+                case 2:
+                    $tmp['place'] = '非会員用';
+                     break;
+                case 11:
+                    $tmp['place'] = '三重県専用';
+                    break;
+                case 21:
+                    $tmp['place'] = '京都府専用';
+                    break;
+                default:
+                    $tmp['place'] = '会員用';
+                    break;
             }
+
+
+            $tmp['start_date'] = $reservation_data['start_date'];
+            $tmp['progress'] = $reservation_data['progress'];
+
+            $entry_data[$k] = $tmp;
         }
-        return view('/management/user/detail', compact('data'));
+
+        return view('/management/user/detail', compact('data', 'entry_data'));
     }
 
     public function mail_index()
@@ -418,5 +502,11 @@ class ManagementController extends Controller
         $data = $account->getData();
 
         return view('/management/mail/index', compact('data'));
+    }
+
+
+    public function reservation_calendar_list(Request $request)
+    {
+        return view('/management/reservation/calendar');
     }
 }

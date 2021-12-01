@@ -291,6 +291,8 @@ Route::get('/management/reservation/delete/{id}', [ManagementController::class, 
 Route::get('/management/reservation/list/{id}', [ManagementController::class, 'reservation_entry_list']);
 
 
+//マネージメント画面(予約情報のカレンダー表示)
+Route::get('/management/reservation/calendar/list', [ManagementController::class, 'reservation_calendar_list']);
 
 
 //マネージメント画面(インフォメーションの表示)
@@ -315,15 +317,15 @@ Route::post('/management/information/delete/{id}', [ManagementController::class,
 Route::get('/management/information/delete/{id}', [ManagementController::class, 'information_delete_index']);
 
 
-
-
+//カレンダー表示用のデータ取得(非会員用)
+Route::get('/setEvents/all', [SetEventController::class, 'setEventsAll']);
 
 
 //マネージメント画面(ユーザー情報表示)
 Route::get('/management/user/index', [ManagementController::class, 'user_index']);
 
 //マネージメント画面(ユーザー詳細情報表示)
-Route::get('/management/user/detail/{id}/{user_flg}', [ManagementController::class, 'user_detail']);
+Route::get('/management/user/detail/{id}', [ManagementController::class, 'user_detail']);
 
 
 //マネージメント画面(メール送信画面表示)
@@ -353,6 +355,10 @@ Route::get('/management/mail/history/index', [MailController::class, 'mail_histo
 //メール履歴詳細表示
 Route::get('/management/mail/history/index/{id}', [MailController::class, 'mail_history_detail']);
 
+//メール履歴送信者リスト表示
+Route::get('/management/mail/history/send/{id}', [MailController::class, 'mail_history_send_list']);
+
+
 
 //****************************************************************************************************************************************************
 
@@ -375,3 +381,20 @@ Route::get('/admin_logout', [AdminController::class, 'logout'])->middleware('log
 Route::get('/test', function () {
     return view('test');
 });
+
+
+
+//ここから本番環境
+Route::get('/good_learning/about', [HomeController::class, 'good_learning_about_cost']);
+
+//ここから本番環境
+Route::get('/good_learning/reservation/{id}', [ReservationController::class, 'reservation_store_form']);
+
+
+Route::get('/good_learning/test', function () {
+    return view('/good_learning/test');
+});
+
+
+//ここから本番環境
+Route::get('/good_learning/truck', [HomeController::class, 'truck_index']);

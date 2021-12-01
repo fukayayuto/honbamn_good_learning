@@ -16,6 +16,7 @@
 <body>
 
     <a href="/management/index"><button>管理画面一覧</button></a>
+    <a href="/management/reservation/calendar/list"><button>カレンダー表示</button></a>
 
     <div class="container">
         <form action="{{ route('reservation_store') }}" method="post">
@@ -125,7 +126,8 @@
             <thead>
                 <tr class="success">
                     <th>ID</th>
-                    <th>予約会場</th>
+                    <th>会場</th>
+                    <th>予約名</th>
                     <th class="sort" data-sort="id">開始日</th>
                     <th>終了日</th>
                     <th>所用日数</th>
@@ -141,22 +143,8 @@
                     @foreach ($data as $item)
                         <tr>
                             <td>{{ $item['id'] }}</td>
-                            @switch($item['place'])
-                                @case(1)
-                                    <td>会員</td>
-                                @break
-                                @case(2)
-                                    <td>非会員</td>
-                                @break
-                                @case(11)
-                                    <td>三重県</td>
-                                @break
-                                @case(21)
-                                    <td>京都府</td>
-                                @break
-                                @default
-
-                            @endswitch
+                            <td>{{ $item['place'] }}</td>
+                            <td>{{ $item['name'] }}</td>
                             <td id="id">{{ $item['start_date'] }}</td>
                             <td>{{ $item['end_date'] }}</td>
                             <td>{{ $item['progress'] }}日</td>

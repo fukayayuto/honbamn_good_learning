@@ -13,8 +13,12 @@ use App\Models\Entry;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use App\Mail\MailTest;
+use App\Mail\ReservationSend;
 use Carbon\Carbon;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use App\Models\Email;
+use App\Models\EmailContent;
+use App\Models\AdressList;
 
 class ReservationController extends Controller
 {
@@ -1318,12 +1322,175 @@ class ReservationController extends Controller
     }
 
 
-    //ここから本番環境部分
+
+    //予約入力画面表示
     public function reservation_store_form($id)
     {
         $reservation = new ReservationSetting();
-        $data = $reservation->selectReservation($id);
+        $reservation_data = $reservation->selectReservation($id);
 
-        return view('/good_learning/reservation/form', compact('data'));
+        $data = [];
+        $data['id'] = $reservation_data->id;
+
+        $start_date = new Carbon($reservation_data->start_date);
+        $data['start_date'] = $start_date->format('m月d日');
+        $progress = (int) $reservation_data->progress;
+        $data['end_date'] = $start_date->addDays($progress)->format('m月d日');
+
+        switch ($reservation_data->place) {
+            case 1:
+                $data['name'] = '【ユーザー限定】グッドラーニング！初任運転者講習（受講開始日で予約、最長７日間まで受講可能）';
+                break;
+            case 2:
+                $data['name'] = '予約受付中グッドラーニング！初任運転者講習（受講開始日で予約、最長７日間まで受講可能）';
+                break;
+            case 11:
+                $data['name'] = '【三重県トラック協会】グッドラーニング！初任運転者講習（受講開始日で予約、最長５日間まで受講可能）';
+                break;
+            case 21:
+                $data['name'] = '【京都府トラック協会】グッドラーニング！初任運転者講習（受講開始日で予約、最長５日間まで受講可能）';
+                break;
+            default:
+                break;
+        }
+        
+        //予約状況を取得
+        $entry = new Entry();
+        $left_seat = $entry->getEmptySeat($id, $reservation_data->count);
+
+        return view('/truck/reservation/form', compact('data'))->with('left_seat', $left_seat);
+    }
+
+    //予約確認画面表示
+    public function truck_reservation_check(Request $request)
+    {
+        $data = [];
+        $data['reservation_id'] = $request->reservation_id;
+        $data['reservation_name'] = $request->reservation_name;
+        $data['start_date'] = $request->start_date;
+        $data['end_date'] = $request->end_date;
+        $data['count'] = $request->count;
+        $data['name'] = $request->name;
+        $data['email'] = $request->email;
+        $data['company_name'] = $request->company_name;
+        $data['phone'] = $request->phone;
+        if (!empty($request->sales_office)) {
+            $data['sales_office'] = $request->sales_office;
+        }
+
+        return view('/truck/reservation/check', compact('data'));
+    }
+
+    //予約確認画面表示
+    public function truck_reservation_store(Request $request)
+    {
+        //アカウント登録
+        $account = new Account();
+        $account->name = $request->name;
+        $account->email = $request->email;
+        $account->company_name = $request->company_name;
+        $account->phone = $request->phone;
+        if (!empty($request->sales_office)) {
+            $account->sales_office = $request->sales_office;
+        }
+
+        $account->save();
+        $account_id = $account->id;
+
+        //エントリー登録
+        $entry = new Entry();
+        $entry->account_id = $account_id;
+        $entry->reservation_id =  $request->reservation_id;
+        $entry->count =  $request->count;
+
+        $entry->save();
+
+        //メール送信情報取得
+        $reservation = new ReservationSetting();
+        $reservation_data = $reservation->selectReservation($request->reservation_id);
+
+        $name = $request->name;
+        $email = $request->email;
+        $company_name = $request->company_name;
+        $sales_office = '';
+        if (!empty($request->sales_office)) {
+            $sales_office = $request->sales_office;
+        }
+        $phone = $request->phone;
+
+        $reservation_name = $request->reservation_name;
+        $count = $request->count;
+
+        $start_date = $reservation_data->start_date;
+        $progress = $reservation_data->progress;
+
+        Mail::to($email)->send(new ReservationSend($name, $email, $company_name, $sales_office, $phone, $reservation_name, $count, $start_date, $progress));
+   
+        //アカウントID決定
+        $account_list = new AdressList();
+        $last_adress_id = $account_list->max('adress_id');
+        $adress_id = $last_adress_id + 1;
+
+        $account_list = new AdressList();
+        $account_list->adress_id = $adress_id;
+        $account_list->account_id = $account_id;
+        $account_list->save();
+
+        //メールコンテンツ登録
+        $email_content = new EmailContent();
+        $email_content->adress_id = $adress_id;
+        $email_content->title = '予約完了メール(自動送信)';
+
+        $mail_text = $name . "様" . " \r\n  \r\n ";
+        $mail_text .= $reservation_name . "に申し込みをいただき、ありがとうございました。"." \r\n ";
+        $mail_text .= "後ほど、担当者より連絡を申し上げます。" ." \r\n ";
+        $mail_text .= "今しばらく、お待ちくださいませ。". " \r\n  \r\n ";
+
+        $mail_text .= "  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" . " \r\n ";
+        $mail_text .= " ■申し込みいただいた予約情報" . " \r\n ";
+        $mail_text .= "  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" . " \r\n ";
+
+        $mail_text .= "講座名：" . $reservation_name . " \r\n ";
+        $mail_text .= "予約人数：" . $count . " \r\n ";
+        $mail_text .= "講座開始日：" . $start_date . " \r\n ";
+        $mail_text .= "講座所用日数:" . $progress . " \r\n ";
+
+    
+      
+        $mail_text .= '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\r\n ';
+        $mail_text .= ' ■申し込みいただいた情報\r\n';
+        $mail_text .= '  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\r\n';
+    
+        $mail_text .= "申し込み日時：" . date("m月d日 H時i分") . " \r\n ";
+        $mail_text .= "氏名：" . $name . " \r\n ";
+        $mail_text .= "メールアドレス：" . $email . " \r\n ";
+        $mail_text .= "会社名：" . $company_name . " \r\n ";
+        $mail_text .= "営業者名:" . $sales_office . " \r\n ";
+        $mail_text .= "電話番号:" . $phone . " \r\n ";
+    
+        $mail_text .= "また、ご不明な点がございましたら" . " \r\n ";
+        $mail_text .= "下記までお気軽にお問い合せくださいませ。" . " \r\n  \r\n ";
+    
+        $mail_text .= "  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" . " \r\n ";
+        $mail_text .= " 【運営元：株式会社●●】" . " \r\n ";
+        $mail_text .= " 住所：〒111-1111　東京都港区●●5-6-7-8" . " \r\n ";
+        $mail_text .= " 電話番号：000-0000-0000" . " \r\n ";
+        $mail_text .= " メール：□□@□□.co.jp "." \r\n ";
+        $mail_text .= "  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" . " \r\n ";
+
+        $email_content->mail_text = $mail_text;
+
+        $email_content->save();
+
+        $email_content_id = $email_content->id;
+        
+        //メール履歴登録
+        $email = new Email();
+        $email->email_content_id = $email_content_id;
+        //メールは１、SMSは２
+        $email->type = 1;
+        $email->save();
+
+        return redirect('/good_learning/truck');
     }
 }

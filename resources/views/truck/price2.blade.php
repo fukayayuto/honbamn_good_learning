@@ -262,11 +262,8 @@
 
             <div id="optionPrice">
               <div class="info">
-                <h3><span>初任運転者講座受講料</span> </h3>
-                <p class="price">非会員<br>
-1名<span>11,000</span>円</p>
-                <p class="price">グッドラーニング!会員<br>
-1名<span>7,700</span>円</p>
+                <h3><span>初任運転者講座受講料</span> 一般受講者</h3>
+                <p class="price">1名<span>11,000</span>円</p>
                 <p>※受講料は事前払いです。</p>
                 <p class="bank">
                   【振込口座】<br />
@@ -286,8 +283,8 @@
                   />
                   <h3>受講予約</h3>
                   <p>
-                    <a href="#calendar">下記受講開始日の席数ボタン</a
-                    >より予約してください。予約にはメールアドレスが必要です。
+                    <a href="#calendar">下記カレンダー</a
+                    >より「受講開始日」を選択して予約してください。予約にはメールアドレスが必要です。
                   </p>
                 </li>
                 <li>
@@ -318,8 +315,8 @@
                     この講座の受講期間は7日間です。7日間の受講期間内であれば都合の良い時間に受講することができます。
                   </p>
                 </li>
-                <li>
-                  <img 
+                <li> 
+                  <img
                     src="{{ asset('/truck/img/price/ico_comp.png') }}"
                     alt="修了"
                     width="135"
@@ -333,49 +330,12 @@
                 </li>
               </ol>
             </div>
-            
-	  <div id="application">
-		  <p class="info">受講期間は7日間のうち、ご都合が良いときに受講ください。<br>
-定員がございますので、お早めにお申し込みください。また、受付締め切りは、お申込みの2日前までとなっております。<br>
-WEBからのご予約は下記受講開始日の<span>席数ボタン</span>からご予約いただけます。</p>
-		  <div id="calendar">
-		  <table>
-			  <thead>
-			  <tr>
-				  <th>受講開始日～終了日</th>
-				  <th>非会員</th>
-				  <th>グッドラーニング！会員</th>
-				  </tr></thead>
-			  <tbody>
-
-                @foreach ($data as $item)
-				    @if ($item['display_flg'] == 1)
-						<tr>
-							<td>{{$item['start_date']}}<span>({{$item['start_week']}})</span>～{{$item['end_date']}}<span>({{$item['end_week']}})</span></td>
-							<td><a href="/good_learning/reservation/{{$item['id']}}"><button class="normal">残り<span>{{$item['left_seat']}}</span>席</button></a></td>
-							<td><a href="/good_learning/reservation/{{$item['id_nomember']}}"><button class="member">残り<span>{{$item['left_seat_nomember']}}</span>席</button></a></td></tr>
-						<tr>
-					@endif
-				  @endforeach
-			  {{-- <tr>
-				  <td>12月7日<span>(火)</span>～13日<span>(月)</span></td>
-				  <td><button class="normal">残り<span>5</span>席</button></td>
-				  <td><button class="member">残り<span>5</span>席</button></td></tr>
-			  <tr>
-				  <td>12月7日<span>(火)</span>～13日<span>(月)</span></td>
-				  <td><button class="normal">残り<span>5</span>席</button></td>
-				  <td><button class="member" disabled>残り<span>0</span>席</button></td></tr>
-			  <tr>
-				  <td>12月7日<span>(火)</span>～13日<span>(月)</span></td>
-				  <td><button class="normal">残り<span>5</span>席</button></td>
-				  <td><button class="member">残り<span>5</span>席</button></td></tr> --}}
-			
-                </tbody></table>
-			  <div class="moreLoad">
-			  <p>さらに表示する</p>
-			  </div>
-		  </div>
-		  </div>
+            <div id="calendar">
+              <iframe
+                src="https://coubic.com/good-learning/widget/calendar/908288,644391?from_pc=month&from_sp=agendaThreeDay"
+                style="border: none; width: 100%; height: 600px"
+              ></iframe>
+            </div>
           </div>
         </div>
         <div id="contactBox">
@@ -435,7 +395,8 @@ WEBからのご予約は下記受講開始日の<span>席数ボタン</span>か�
 		</div>
     </div>
     <!-- js -->
+    
     <script src="{{ asset('/truck/js/common.css') }}"></script>
-    <?php @include($_SERVER['DOCUMENT_ROOT']."/truck/common/inc/js_after.inc")?>
+    <?php @include($_SERVER['DOCUMENT_ROOT']."/truck/inc/js_after.inc")?>
   </body>
 </html>

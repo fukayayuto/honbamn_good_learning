@@ -48,19 +48,32 @@ class Entry extends Model
         return $data;
     }
 
-     //非会員の予約を収集
-     public function getAccountEntry($account_id)
-     {
-         $data = Entry::where('account_id', '=', $account_id)->get();
+    //非会員の予約を収集
+    public function getAccountEntry($account_id)
+    {
+        $data = Entry::where('account_id', '=', $account_id)->get();
  
-         return $data;
-     }
+        return $data;
+    }
 
-     //会員の予約を収集
-     public function getUserEntry($user_id)
-     {
-         $data = Entry::where('user_id', '=', $user_id)->get();
+    //会員の予約を収集
+    public function getUserEntry($user_id)
+    {
+        $data = Entry::where('user_id', '=', $user_id)->get();
  
-         return $data;
-     }
+        return $data;
+    }
+
+
+    //空席状況確認
+    public function getEmptySeat($id, $left_count)
+    {
+        $data = Entry::where('reservation_id', '=', $id)->get();
+
+        foreach ($data as $val) {
+            $left_count = $left_count - $val['count'];
+        }
+
+        return $left_count;
+    }
 }

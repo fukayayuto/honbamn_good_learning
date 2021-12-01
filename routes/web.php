@@ -387,8 +387,6 @@ Route::get('/test', function () {
 //ここから本番環境
 Route::get('/good_learning/about', [HomeController::class, 'good_learning_about_cost']);
 
-//ここから本番環境
-Route::get('/good_learning/reservation/{id}', [ReservationController::class, 'reservation_store_form']);
 
 
 Route::get('/good_learning/test', function () {
@@ -398,3 +396,16 @@ Route::get('/good_learning/test', function () {
 
 //ここから本番環境
 Route::get('/good_learning/truck', [HomeController::class, 'truck_index']);
+
+Route::get('/good_learning/truck/price', [HomeController::class, 'truck_price_index']);
+
+Route::get('/good_learning/truck/price/2', [HomeController::class, 'truck_price2_index']);
+
+//予約入力画面
+Route::get('/good_learning/reservation/{id}', [ReservationController::class, 'reservation_store_form']);
+
+//予約情報確認画面
+Route::post('/good_learning/truck/reservation/check', [ReservationController::class, 'truck_reservation_check'])->name('truck_reservation_check');
+
+//予約情報登録
+Route::post('/good_learning/truck/reservation/store', [ReservationController::class, 'truck_reservation_store'])->name('truck_reservation_store');

@@ -34,7 +34,6 @@ class ReservationSetting extends Model
             'progress' => $data['progress'],
             'count' => $data['count'],
             'place' => $data['place'],
-
         ]);
     }
 

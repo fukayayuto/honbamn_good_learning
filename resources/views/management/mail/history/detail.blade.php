@@ -25,7 +25,7 @@
             <label>{{$title}}</label><br>
 
             <label>本文:</label>
-            <label>{{$mail_text}}</label><br>
+            <label style="white-space: pre-wrap;">{{$mail_text}}</label><br>
 
             <a href="/management/mail/history/index"><button class="btn btn-primary">戻る</button></a>
     </div>

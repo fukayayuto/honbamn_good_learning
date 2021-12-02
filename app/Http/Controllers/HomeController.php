@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Account;
 use App\Models\Information;
 use Carbon\Carbon;
+use App\Mail\ContactReply;
+use Mail;
 
 class HomeController extends Controller
 {
@@ -244,5 +246,94 @@ class HomeController extends Controller
     public function truck_price2_index()
     {
         return view('/truck/price2');
+    }
+
+    public function truck_flow_index()
+    {
+        return view('/truck/flow/index');
+    }
+
+    public function truck_adopt_index()
+    {
+        return view('/truck/adopt/index');
+    }
+
+    public function truck_contact_index()
+    {
+        return view('/truck/contact/index');
+    }
+
+    public function truck_faq_index()
+    {
+        return view('/truck/faq/index');
+    }
+
+    public function truck_contact_confirm(Request $request)
+    {
+        $data = $request->all();
+       
+        return view('/truck/contact/confirm', compact('data'));
+    }
+
+    public function truck_contact_thanks(Request $request)
+    {
+        $data = $request->all();
+
+        $mail = $data["mail_address"];
+
+        // 2通のメールの共通部分
+        $inquiry_content = "-----------------\n";
+        $inquiry_content .= "お問い合わせ内容\n";
+        $inquiry_content .= $data["checkBox"] . "\n\n";
+        $inquiry_content .= "会社名\n";
+        $inquiry_content .= $data["company"] . "\n\n";
+        $inquiry_content .= "ご担当者名\n";
+        $inquiry_content .= $data["inquirer"] . "\n\n";
+        $inquiry_content .= "メールアドレス\n";
+        $inquiry_content .= $mail . "\n\n";
+        $inquiry_content .= "お電話番号\n";
+        $inquiry_content .= $data["tel"] . "\n\n";
+        $inquiry_content .= "ご住所\n";
+        $inquiry_content .= $data["pref_address"] . "\n\n";
+        $inquiry_content .= "受講開始の時期\n";
+        $inquiry_content .= $data["date"] . "\n\n";
+        $inquiry_content .= "受講者の人数\n";
+        $inquiry_content .= $data["human"] . "\n\n";
+        $inquiry_content .= "その他(質問・ご相談)\n";
+        $inquiry_content .= $data["question"] . "\n";
+        $inquiry_content .= "-----------------";
+
+        //2通のメールのそれぞれの本文
+        $mail_body_1 = "「グッドラーニング！」メールフォームからお問い合わせがありました。\n\n\n";
+        $mail_body_1 .= $inquiry_content;
+
+        $mail_body_2 = "「グッドラーニング！」メールフォームから\n";
+        $mail_body_2 .= "お問い合わせ頂き、ありがとうございます。\n";
+        $mail_body_2 .= "下記内容で受付いたしました。\n\n";
+        $mail_body_2 .= "折り返し、担当者よりご連絡いたしますので、\n";
+        $mail_body_2 .= "恐れ入りますが、しばらくお待ちください。\n\n";
+        $mail_body_2 .= $inquiry_content;
+
+        //メールの作成
+        $mail_to_1	= "yosuke-saito@cab-station.com";
+        $mail_subject_1	= "【グッドラーニング】お問い合わせ";
+        $mail_header_1	= "from:" . $mail;
+
+        $mail_to_2	= $mail;
+        $mail_subject_2	= "【グッドラーニング】お問い合わせを受け付けました";
+        $mail_header_2	= "from:yosuke-saito@cab-station.com";
+
+        //メール送信処理
+        mb_language("Japanese");
+        mb_internal_encoding("UTF-8");
+
+        Mail::to($mail_to_1)->send(new ContactReply($mail_subject_1, $mail_body_1));
+
+        Mail::to($mail_to_2)->send(new ContactReply($mail_subject_2, $mail_body_2));
+
+        // $mailsousin_1 = mb_send_mail($mail_to_1, $mail_subject_1, $mail_body_1, $mail_header_1);
+        // $mailsousin_2 = mb_send_mail($mail_to_2, $mail_subject_2, $mail_body_2, $mail_header_2);
+       
+        return view('/truck/contact/thanks');
     }
 }

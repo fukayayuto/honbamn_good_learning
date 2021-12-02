@@ -83,12 +83,12 @@
           <div id="navTrigger"><span>&nbsp;</span></div>
           <nav>
             <ul>
-              <li><a href="/truck/">HOME</a></li>
-              <li class="stay"><span>料金について</span></li>
-              <li><a href="/truck/flow/">ご利用の流れ</a></li>
-              <li><a href="/truck/adopt/">ご採用実績</a></li>
-              <li><a href="/truck/faq/">FAQ</a></li>
-              <li><a href="/truck/contact/">お問い合わせ</a></li>
+              <li><a href="/good_learning/truck">HOME</a></li>
+              <li class="stay"><span><a href="/good_learning/truck/price/">料金について</span></a></li>
+              <li><a href="/good_learning/truck/flow/">ご利用の流れ</a></li>
+              <li><a href="/good_learning/truck/adopt/">ご採用実績</a></li>
+              <li><a href="/good_learning/truck/faq/">FAQ</a></li>
+              <li><a href="/good_learning/truck/contact/">お問い合わせ</a></li>
             </ul>
           </nav>
         </div>
@@ -382,7 +382,7 @@ WEBからのご予約は下記受講開始日の<span>席数ボタン</span>か�
           <div id="contactIn">
             <p>お問い合わせ・受講体験は<br />お電話又はフォームで</p>
             <a href="tel:0368801064" class="tel">03-6880-1064</a>
-            <a href="/truck/contact/" class="btn"
+            <a href="/good_learning/truck/contact/" class="btn"
               >お問い合わせ・受講体験はこちら</a
             >
           </div>
@@ -402,12 +402,12 @@ WEBからのご予約は下記受講開始日の<span>席数ボタン</span>か�
             />
           </div>
           <ul class="footNav">
-            <li><a href="/truck/">ホーム</a></li>
-            <li><a href="/truck/price/">料金について</a></li>
-            <li><a href="/truck/flow/">ご利用の流れ</a></li>
-            <li><a href="/truck/adopt/">ご採用実績</a></li>
-            <li><a href="/truck/faq/">FAQ</a></li>
-            <li><a href="/truck/contact/">お問い合わせ</a></li>
+            <li><a href="/good_learning/truck/">ホーム</a></li>
+            <li><a href="/good_learning/truck/price/">料金について</a></li>
+            <li><a href="/good_learning/truck/flow/">ご利用の流れ</a></li>
+            <li><a href="/good_learning/truck/adopt/">ご採用実績</a></li>
+            <li><a href="/good_learning/truck/faq/">FAQ</a></li>
+            <li><a href="/good_learning/truck/contact/">お問い合わせ</a></li>
           </ul>
         </div>
         <div id="copy">

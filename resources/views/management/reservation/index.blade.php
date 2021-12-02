@@ -127,7 +127,6 @@
                 <tr class="success">
                     <th>ID</th>
                     <th>会場</th>
-                    <th>予約名</th>
                     <th class="sort" data-sort="id">開始日</th>
                     <th>終了日</th>
                     <th>所用日数</th>
@@ -144,7 +143,6 @@
                         <tr>
                             <td>{{ $item['id'] }}</td>
                             <td>{{ $item['place'] }}</td>
-                            <td>{{ $item['name'] }}</td>
                             <td id="id">{{ $item['start_date'] }}</td>
                             <td>{{ $item['end_date'] }}</td>
                             <td>{{ $item['progress'] }}日</td>

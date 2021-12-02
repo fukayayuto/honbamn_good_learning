@@ -35,7 +35,7 @@
                        <td>{{$item['type']}}</td>
                        <td>{{$item['created_at']}}</td>
                        <td><a href="/management/mail/history/send/{{$item['content_id']}}">{{$item['adress']}}</a></td>
-                       <td><a href="/management/mail/history/index/{{$item['content_id']}}">{{$item['email_content']}}</a></td>
+                       <td style="white-space: pre-wrap;"><a href="/management/mail/history/index/{{$item['content_id']}}">{{$item['email_content']}}</a></td>
                    </tr>
                    
                @endforeach

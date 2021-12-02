@@ -16,9 +16,16 @@ class ContactReply extends Mailable
      *
      * @return void
      */
-    public function __construct()
+
+    public $subject;
+    public $text;
+    
+
+
+    public function __construct($subject, $text)
     {
-        //
+        $this->subject = $subject;
+        $this->text = $text;
     }
 
     /**
@@ -29,7 +36,8 @@ class ContactReply extends Mailable
     public function build()
     {
         //以下追記
-        return $this->view('emails.text')
-                    ->subject('メールの標題');
+        return $this->from('info@cab-station.com')
+                    ->view('emails.text')
+                    ->subject($this->subject);
     }
 }

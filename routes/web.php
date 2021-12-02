@@ -409,3 +409,35 @@ Route::post('/good_learning/truck/reservation/check', [ReservationController::cl
 
 //予約情報登録
 Route::post('/good_learning/truck/reservation/store', [ReservationController::class, 'truck_reservation_store'])->name('truck_reservation_store');
+
+//ご利用の流れ表示
+Route::get('/good_learning/truck/flow', [HomeController::class, 'truck_flow_index']);
+
+//ご採用実績
+Route::get('/good_learning/truck/adopt', [HomeController::class, 'truck_adopt_index']);
+
+//お問い合わせ
+Route::get('/good_learning/truck/contact', [HomeController::class, 'truck_contact_index']);
+
+//お問い合わせ確認画面
+Route::post('/good_learning/truck/contact/confirm', [HomeController::class, 'truck_contact_confirm'])->name('truck_contact_confirm');
+
+//お問い合わせ送信画面
+Route::post('/good_learning/truck/contact/thanks', [HomeController::class, 'truck_contact_thanks'])->name('truck_contact_thanks');
+
+
+
+//FAQ
+Route::get('/good_learning/truck/faq', [HomeController::class, 'truck_faq_index']);
+
+
+
+
+
+
+
+
+//カレンダー表示用のデータ取得(非会員用)
+Route::get('/setEvents/all', [SetEventController::class, 'setEventsAll']);
+
+Route::get('/setEvents', [ReservationController::class, 'setEventsNomember']);

@@ -36,7 +36,6 @@ class ManagementController extends Controller
                 foreach ($reservation_data as $k => $val) {
                     $tmp = [];
                     $tmp['id'] = $val->id;
-                    $tmp['name'] = $val->name;
                     $tmp['place_id'] = $val->place;
 
                     switch ($tmp['place_id']) {
@@ -91,7 +90,6 @@ class ManagementController extends Controller
                 foreach ($reservation_data as $k =>$val) {
                     $tmp = [];
                     $tmp['id'] = $val->id;
-                    $tmp['name'] = $val->name;
                     $tmp['place_id'] = $val->place;
 
                     switch ($tmp['place_id']) {
@@ -147,7 +145,6 @@ class ManagementController extends Controller
                 foreach ($reservation_data as $k =>$val) {
                     $tmp = [];
                     $tmp['id'] = $val->id;
-                    $tmp['name'] = $val->name;
                     $tmp['place_id'] = $val->place;
 
                     switch ($tmp['place_id']) {
@@ -199,7 +196,6 @@ class ManagementController extends Controller
         foreach ($reservation_data as $k =>$val) {
             $tmp = [];
             $tmp['id'] = $val->id;
-            $tmp['name'] = $val->name;
             $tmp['place_id'] = $val->place;
 
             switch ($tmp['place_id']) {

@@ -34,10 +34,13 @@
 
 <body>
 
+    <a href="/management/index"><button>管理画面一覧</button></a>
+    <a href="/management/reservation/index"><button>予約一覧表示</button></a>
+
     {{-- カレンダー表示 --}}
-    <div id="app">
-        <div class="m-auto w-50 m-5 p-5">
-            <div id='calendar'></div>
+    <div class="container">
+        <div id="app">
+                <div id='calendar'></div>
         </div>
     </div>
 

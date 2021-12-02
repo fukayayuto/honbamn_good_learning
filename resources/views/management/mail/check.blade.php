@@ -36,7 +36,7 @@
             <label>{{$title}}</label><br>
 
             <label>本文:</label>
-            <label>{{$mail_text}}</label><br>
+            <label　style="white-space: pre-wrap;">{{$mail_text}}</label><br>
 
             <button type="submit" class="btn btn-primary">送信する</button>
         </form>

@@ -1457,9 +1457,9 @@ class ReservationController extends Controller
 
     
       
-        $mail_text .= '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\r\n ';
-        $mail_text .= ' ■申し込みいただいた情報\r\n';
-        $mail_text .= '  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\r\n';
+        $mail_text .= "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" . "\r\n";
+        $mail_text .= " ■申し込みいただいた情報". "\r\n";
+        $mail_text .= "  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" . "\r\n";
     
         $mail_text .= "申し込み日時：" . date("m月d日 H時i分") . " \r\n ";
         $mail_text .= "氏名：" . $name . " \r\n ";

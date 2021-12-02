@@ -122,12 +122,12 @@
           <div id="navTrigger"><span>&nbsp;</span></div>
           <nav>
             <ul>
-              <li><a href="/truck/">HOME</a></li>
-              <li><a href="/truck/price/">料金について</a></li>
-              <li><a href="/truck/flow/">ご利用の流れ</a></li>
-              <li><a href="/truck/adopt/">ご採用実績</a></li>
-              <li><a href="/truck/faq/">FAQ</a></li>
-              <li><a href="/truck/contact/">お問い合わせ</a></li>
+              <li><a href="/good_learning/truck">HOME</a></li>
+              <li><a href="/good_learning/truck/price/">料金について</a></li>
+              <li><a href="/good_learning/truck/flow/">ご利用の流れ</a></li>
+              <li><a href="/good_learning/truck/adopt/">ご採用実績</a></li>
+              <li><a href="/good_learning/truck/faq/">FAQ</a></li>
+              <li><a href="/good_learning/truck/contact/">お問い合わせ</a></li>
             </ul>
           </nav>
         </div>
@@ -139,36 +139,53 @@
           <div id="newsIn">
             <p id="newsTit">NEWS &amp; TOPICS</p>
             <ul>
+                {{-- @foreach ($information_priority_data as $item)
               <li>
-                <span>2021.11.12</span
-                ><a href="/truck/adopt/">株式会社孝栄様</a
-                >にご採用頂きました。
+                <span>{{$item['created_at']}}</span
+                >
+                @if (isset($item['part_first']))
+                {{$item['part_first']}}
+                @endif
+
+                @if (isset($item['link_part']))
+                    <a href="{{$item['link']}}">
+                        {{$item['link_part']}}
+                    </a>
+                @else
+                        {{$item['title']}}
+                @endif
+            
+                @if (isset($item['part_final']))
+                    {{$item['part_final']}}
+                @endif
               </li>
+              @endforeach --}}
                <li>
                 <span>2021.11.04</span
-                ><a href="/truck/adopt/">G's Logicom株式会社様</a
+                ><a href="/good_learning/truck/adopt/">G's Logicom株式会社様</a
                 >にご採用頂きました。
               </li>
                <li>
                 <span>2021.11.01</span
-                ><a href="/truck/adopt/">株式会社九建運送様</a
+                ><a href="/good_learning/truck/adopt/">株式会社九建運送様</a
                 >にご採用頂きました。
               </li>
                <li>
                 <span>2021.10.29</span
-                ><a href="/truck/adopt/">協和興運株式会社様</a
+                ><a href="/good_learning/truck/adopt/">協和興運株式会社様</a
                 >にご採用頂きました。
               </li>
               <li>
                 <span>2021.10.22</span
-                ><a href="/truck/adopt/">有限会社成田商事様</a
+                ><a href="/good_learning/truck/adopt/">有限会社成田商事様</a
                 >にご採用頂きました。
               </li>
                <li>
                 <span>2021.10.12</span
-                ><a href="/truck/adopt/">有限会社美珠商事様</a
+                ><a href="/good_learning/truck/adopt/">有限会社美珠商事様</a
                 >にご採用頂きました。
               </li>
+              
               </ul>
           </div>
         </div>
@@ -176,7 +193,7 @@
           <div id="contactIn">
             <p>お問い合わせ・受講体験は<br />お電話又はフォームで</p>
             <a href="tel:0368801064" class="tel">03-6880-1064</a>
-            <a href="/truck/contact/" class="btn"
+            <a href="/good_learning/truck/contact/" class="btn"
               >お問い合わせ・受講体験はこちら</a
             >
           </div>
@@ -362,9 +379,9 @@ ayer_id=0&amp;app_id=58479"
               <p>平日9:30~17:30<span>土日祝日休業</span></p>
             </div>
             <ul>
-              <li><a href="/truck/price/">利用料金</a></li>
+              <li><a href="/good_learning/truck/price/">利用料金</a></li>
               <li>
-                <a href="/truck/contact/">お問い合わせ・受講体験はこちら</a>
+                <a href="/good_learning/truck/contact/">お問い合わせ・受講体験はこちら</a>
               </li>
             </ul>
           </div>
@@ -429,12 +446,12 @@ ayer_id=0&amp;app_id=58479"
             />
           </div>
           <ul class="footNav">
-            <li><a href="/truck/">ホーム</a></li>
-            <li><a href="/truck/price/">料金について</a></li>
-            <li><a href="/truck/flow/">ご利用の流れ</a></li>
-            <li><a href="/truck/adopt/">ご採用実績</a></li>
-            <li><a href="/truck/faq/">FAQ</a></li>
-            <li><a href="/truck/contact/">お問い合わせ</a></li>
+            <li><a href="/good_learning/truck/">ホーム</a></li>
+            <li><a href="/good_learning/truck/price/">料金について</a></li>
+            <li><a href="/good_learning/truck/flow/">ご利用の流れ</a></li>
+            <li><a href="/good_learning/truck/adopt/">ご採用実績</a></li>
+            <li><a href="/good_learning/truck/faq/">FAQ</a></li>
+            <li><a href="/good_learning/truck/contact/">お問い合わせ</a></li>
           </ul>
         </div>
         <div id="copy">

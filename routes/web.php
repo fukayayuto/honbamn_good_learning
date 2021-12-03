@@ -264,57 +264,57 @@ Route::get('/reservation/entry/index/{id}', [ReservationController::class, 'rese
 
 
 //マネージメント画面
-Route::get('/management/index', [ManagementController::class, 'index']);
+Route::get('/develop/management/index', [ManagementController::class, 'index']);
 
 
 //マネージメント画面(予約情報の管理)
-Route::get('/management/reservation/index', [ManagementController::class, 'reservation_index']);
+Route::get('/develop/management/reservation/index', [ManagementController::class, 'reservation_index']);
 
 //マネージメント画面(予約情報の登録)
-Route::post('/management/reservation/store', [ManagementController::class, 'reservation_store'])->name('reservation_store');
+Route::post('/develop/management/reservation/store', [ManagementController::class, 'reservation_store'])->name('reservation_store');
 
-Route::get('/management/reservation/store', [ManagementController::class, 'reservation_store_index']);
+Route::get('/develop/management/reservation/store', [ManagementController::class, 'reservation_store_index']);
 
 //マネージメント画面(予約情報の編集画面)
-Route::get('/management/reservation/detail/{id}', [ManagementController::class, 'reservation_detail']);
+Route::get('/develop/management/reservation/detail/{id}', [ManagementController::class, 'reservation_detail']);
 
 //マネージメント画面(予約情報の編集後)
-Route::post('/management/reservation/detail/edit', [ManagementController::class, 'reservation_detail_edit'])->name('reservation_detail_edit');
+Route::post('/develop/management/reservation/detail/edit', [ManagementController::class, 'reservation_detail_edit'])->name('reservation_detail_edit');
 
-Route::get('/management/reservation/detail/edit', [ManagementController::class, 'reservation_detail']);
+Route::get('/develop/management/reservation/detail/edit', [ManagementController::class, 'reservation_detail']);
 
 //マネージメント画面(予約情報の削除後)
-Route::get('/management/reservation/delete/{id}', [ManagementController::class, 'reservation_delete']);
+Route::get('/develop/management/reservation/delete/{id}', [ManagementController::class, 'reservation_delete']);
 
 
 //マネージメント画面(予約情報のエントリー表示)
-Route::get('/management/reservation/list/{id}', [ManagementController::class, 'reservation_entry_list']);
+Route::get('/develop/management/reservation/list/{id}', [ManagementController::class, 'reservation_entry_list']);
 
 
 //マネージメント画面(予約情報のカレンダー表示)
-Route::get('/management/reservation/calendar/list', [ManagementController::class, 'reservation_calendar_list']);
+Route::get('/develop/management/reservation/calendar/list', [ManagementController::class, 'reservation_calendar_list']);
 
 
 //マネージメント画面(インフォメーションの表示)
-Route::get('/management/information/index', [ManagementController::class, 'information_index']);
+Route::get('/develop/management/information/index', [ManagementController::class, 'information_index']);
 
 //マネージメント画面(インフォメーションの登録)
-Route::post('/management/information/store', [ManagementController::class, 'information_store'])->name('information_store');
+Route::post('/develop/management/information/store', [ManagementController::class, 'information_store'])->name('information_store');
 
-Route::get('/management/information/store', [ManagementController::class, 'information_store_index']);
+Route::get('/develop/management/information/store', [ManagementController::class, 'information_store_index']);
 
 //マネージメント画面(インフォメーション情報の編集画面)
-Route::get('/management/information/detail/{id}', [ManagementController::class, 'information_detail']);
+Route::get('/develop/management/information/detail/{id}', [ManagementController::class, 'information_detail']);
 
 //マネージメント画面(インフォメーション情報の編集後)
-Route::post('/management/information/detail/edit', [ManagementController::class, 'information_detail_edit'])->name('information_detail_edit');
+Route::post('/develop/management/information/detail/edit', [ManagementController::class, 'information_detail_edit'])->name('information_detail_edit');
 
-Route::get('/management/information/detail/edit', [ManagementController::class, 'reservation_detail_edit_index']);
+Route::get('/develop/management/information/detail/edit', [ManagementController::class, 'reservation_detail_edit_index']);
 
 //マネージメント画面(インフォメーション情報の削除)
-Route::post('/management/information/delete/{id}', [ManagementController::class, 'information_delete']);
+Route::post('/develop/management/information/delete/{id}', [ManagementController::class, 'information_delete']);
 
-Route::get('/management/information/delete/{id}', [ManagementController::class, 'information_delete_index']);
+Route::get('/develop/management/information/delete/{id}', [ManagementController::class, 'information_delete_index']);
 
 
 //カレンダー表示用のデータ取得(非会員用)
@@ -322,41 +322,41 @@ Route::get('/setEvents/all', [SetEventController::class, 'setEventsAll']);
 
 
 //マネージメント画面(ユーザー情報表示)
-Route::get('/management/user/index', [ManagementController::class, 'user_index']);
+Route::get('/develop/management/user/index', [ManagementController::class, 'user_index']);
 
 //マネージメント画面(ユーザー詳細情報表示)
-Route::get('/management/user/detail/{id}', [ManagementController::class, 'user_detail']);
+Route::get('/develop/management/user/detail/{id}', [ManagementController::class, 'user_detail']);
 
 
 //マネージメント画面(メール送信画面表示)
-Route::get('/management/mail/index', [ManagementController::class, 'mail_index']);
+Route::get('/develop/management/mail/index', [ManagementController::class, 'mail_index']);
 
 //マネージメント画面(メール送信画面表示)
-Route::post('/management/mail/send', [MailController::class, 'mail_send'])->name('mail_send');
+Route::post('/develop/management/mail/send', [MailController::class, 'mail_send'])->name('mail_send');
 
 //マネージメント画面(メール送信画面表示)
-Route::post('/management/mail/select/index', [MailController::class, 'select_mail_index'])->name('select_mail_index');
+Route::post('/develop/management/mail/select/index', [MailController::class, 'select_mail_index'])->name('select_mail_index');
 
-Route::get('/management/mail/select/index', [MailController::class, 'select_mail_index_all']);
+Route::get('/develop/management/mail/select/index', [MailController::class, 'select_mail_index_all']);
 
 //選択した人向けのメール作成画面
-Route::post('/management/mail/select/create', [MailController::class, 'select_mail_create'])->name('select_mail_create');
+Route::post('/develop/management/mail/select/create', [MailController::class, 'select_mail_create'])->name('select_mail_create');
 
-Route::get('/management/mail/select/create', [MailController::class, 'select_mail_create_get']);
+Route::get('/develop/management/mail/select/create', [MailController::class, 'select_mail_create_get']);
 
 
-Route::post('/management/mail/select/check', [MailController::class, 'select_mail_check'])->name('select_mail_check');
+Route::post('/develop/management/mail/select/check', [MailController::class, 'select_mail_check'])->name('select_mail_check');
 
-Route::post('/management/mail/select/send', [MailController::class, 'select_mail_send'])->name('select_mail_send');
+Route::post('/develop/management/mail/select/send', [MailController::class, 'select_mail_send'])->name('select_mail_send');
 
 //メール履歴表示
-Route::get('/management/mail/history/index', [MailController::class, 'mail_history_index']);
+Route::get('/develop/management/mail/history/index', [MailController::class, 'mail_history_index']);
 
 //メール履歴詳細表示
-Route::get('/management/mail/history/index/{id}', [MailController::class, 'mail_history_detail']);
+Route::get('/develop/management/mail/history/index/{id}', [MailController::class, 'mail_history_detail']);
 
 //メール履歴送信者リスト表示
-Route::get('/management/mail/history/send/{id}', [MailController::class, 'mail_history_send_list']);
+Route::get('/develop/management/mail/history/send/{id}', [MailController::class, 'mail_history_send_list']);
 
 
 
@@ -385,7 +385,7 @@ Route::get('/test', function () {
 
 
 //ここから本番環境
-Route::get('/good_learning/about', [HomeController::class, 'good_learning_about_cost']);
+Route::get('/develop/good_learning/about', [HomeController::class, 'good_learning_about_cost']);
 
 
 
@@ -395,40 +395,40 @@ Route::get('/good_learning/test', function () {
 
 
 //ここから本番環境
-Route::get('/good_learning/truck', [HomeController::class, 'truck_index']);
+Route::get('/develop/truck', [HomeController::class, 'truck_index']);
 
-Route::get('/good_learning/truck/price', [HomeController::class, 'truck_price_index']);
+Route::get('/develop/truck/price', [HomeController::class, 'truck_price_index']);
 
-Route::get('/good_learning/truck/price/2', [HomeController::class, 'truck_price2_index']);
+Route::get('/develop/truck/price/2', [HomeController::class, 'truck_price2_index']);
 
 //予約入力画面
-Route::get('/good_learning/reservation/{id}', [ReservationController::class, 'reservation_store_form']);
+Route::get('/develop/reservation/{id}', [ReservationController::class, 'reservation_store_form']);
 
 //予約情報確認画面
-Route::post('/good_learning/truck/reservation/check', [ReservationController::class, 'truck_reservation_check'])->name('truck_reservation_check');
+Route::post('/develop/truck/reservation/check', [ReservationController::class, 'truck_reservation_check'])->name('truck_reservation_check');
 
 //予約情報登録
-Route::post('/good_learning/truck/reservation/store', [ReservationController::class, 'truck_reservation_store'])->name('truck_reservation_store');
+Route::post('/develop/truck/reservation/store', [ReservationController::class, 'truck_reservation_store'])->name('truck_reservation_store');
 
 //ご利用の流れ表示
-Route::get('/good_learning/truck/flow', [HomeController::class, 'truck_flow_index']);
+Route::get('/develop/truck/flow', [HomeController::class, 'truck_flow_index']);
 
 //ご採用実績
-Route::get('/good_learning/truck/adopt', [HomeController::class, 'truck_adopt_index']);
+Route::get('/develop/truck/adopt', [HomeController::class, 'truck_adopt_index']);
 
 //お問い合わせ
-Route::get('/good_learning/truck/contact', [HomeController::class, 'truck_contact_index']);
+Route::get('/develop/truck/contact', [HomeController::class, 'truck_contact_index']);
 
 //お問い合わせ確認画面
-Route::post('/good_learning/truck/contact/confirm', [HomeController::class, 'truck_contact_confirm'])->name('truck_contact_confirm');
+Route::post('/develop/truck/contact/confirm', [HomeController::class, 'truck_contact_confirm'])->name('truck_contact_confirm');
 
 //お問い合わせ送信画面
-Route::post('/good_learning/truck/contact/thanks', [HomeController::class, 'truck_contact_thanks'])->name('truck_contact_thanks');
+Route::post('/develop/truck/contact/thanks', [HomeController::class, 'truck_contact_thanks'])->name('truck_contact_thanks');
 
 
 
 //FAQ
-Route::get('/good_learning/truck/faq', [HomeController::class, 'truck_faq_index']);
+Route::get('/develop/truck/faq', [HomeController::class, 'truck_faq_index']);
 
 
 
